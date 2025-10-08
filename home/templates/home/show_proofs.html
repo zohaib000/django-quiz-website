@@ -1,0 +1,231 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+<title>Submissions of your Job</title>
+{% endblock %}
+{% block content %}
+<style>
+
+    *{
+        font-family: calibri;
+    }
+
+
+    .job-item{
+        color: black;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: monospace;
+    }
+    p{
+        font-size: 19px;
+        line-height: 27px;
+    }
+    .define{
+        font-weight: bold;
+        color: #056e17;
+    }
+
+    .desc{
+        font-weight: bolder;
+    }
+
+    #proofs a{
+        color: white;
+    }
+
+    #proofs a:hover{
+        color: blueviolet;
+    }
+
+    table *{
+        font-size:20px;
+    }
+
+    @media screen and (max-width:1000px){
+        .title{
+           display: none;
+        }
+     }
+  
+     @media screen and (max-width:896px){
+        .job-details p{
+           font-size:15px;
+        }
+     }
+     @media screen and (min-width:576px) and (max-width:598px){
+        .job-details p{
+           font-size:13px;
+        }
+     }
+     @media screen and (min-width:325px) and (max-width:330px){
+        .job-details p{
+           font-size:13px;
+        }
+     }
+</style>
+
+<br>
+{% if job.allowed_countries != "All" %}
+<h1>Countries Selected for Job</h1>
+<br>
+{% for flag in countries %}
+<span class="flag-icon flag-icon-{{flag|slice:'1:-1' }}" id="flag" style="font-size: 50px;margin-top:3px;"></span>&nbsp;&nbsp;
+{% endfor %}
+{% endif %}
+<div class="container-fluid">
+   <div class="container-fluid mt-5">
+      <p class="job-item text-danger" style="font-family: calibri;">Job id : {{job.job_id}} </p>
+
+      <h1 style="font-family: revert;font-size:35px;font-weight: bold;">{{job.job_title}}</h1>
+      <p class="mt-2" id="description">{{job.job_description|linebreaks}}</p>
+      <h1 class="text-center bg-primary text-white mt-4" style="font-size:30px;font-family:calibri;">Job Details</h1>
+      <div class="row mt-3 p-2 job-details">
+         <div class="col-sm-3 col-6">
+            <p class="define">You will Earn</p>
+            <p class="desc">${{job.job_price_per}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Overall Price</p>
+            <p class="desc">${{job.overall_price}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Feature Price</p>
+            <p class="desc">${{job.feature_price}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Posted On</p>
+            <p class="desc">{{job.date_time_when_posted}}</p>
+         </div>
+        
+         <div class="col-sm-3 col-6">
+            <p class="define">Total Conversions</p>
+            <p class="desc">{{job.total_conversions}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Done Conversions</p>
+            <p class="desc">{{job.done_conversions}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Posted From</p>
+            <p class="desc">{{job.country}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Job Type</p>
+            <p class="desc">{% if job.allowed_countries == "All" %}International
+               {% else %}Selective{% endif %}
+            </p>
+         </div>
+      </div>
+   </div>
+<div class="m-3 p-2">
+    <div class="table-responsive-sm">
+    {% if proofs %}
+       <table class="table table-dark">
+          <thead>
+             <tr class="text-warning">
+                <th>{{job.proof1}}</th>
+                <th>{{job.proof2}}</th>
+                <th>{{job.proof3}}</th>
+                <th>{{job.proof4}}</th>
+                <th>Submitted By</th>
+                <th>Action</th>
+             </tr>
+          </thead>
+          <tbody>
+            
+            {% for i in proofs %}
+
+             <tr id="proofs" data-row="{{i.id}}" >
+                <td>{% if job.proof1_type == 'textarea' %}{{i.proof1}}{% else %}<a href="{{i.proof1.url}}">Open</a>{% endif %}</td>
+                <td>{% if job.proof2_type == 'textarea' %}{{i.proof2}}{% else %}<a href="{{i.proof2.url}}">Open</a>{% endif %}</td>
+                <td>{% if job.proof3_type == 'textarea' %}{{i.proof3}}{% else %}<a href="{{i.proof3.url}}">Open</a>{% endif %}</td>
+                <td>{% if job.proof4_type == 'textarea' %}{{i.proof4}}{% else %}<a href="{{i.proof4.url}}">Open</a>{% endif %}</td>
+                <td>{{i.user_submitted_job}}</td>
+                <td>
+                    <button class="btn btn-success text-dark" id="accept" onclick="Accept({{i.id}})">Accept</button>
+                    <button  class="btn btn-danger" id="reject" onclick="Reject({{i.id}})">Reject</button>
+                </td>
+             </tr>
+            
+             <div class="modal fade" id="exampleModal{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" style="font-family:calibri;" id="exampleModalLabel"> Briefly Tell us what happen</h5>
+                      <button type="button" style="border: none;
+                      background: none;" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                         <textarea name="reason" required id="reason{{i.id}}" class="form-control" cols="30" rows="10" placeholder="Describe your reason for Rejection... "></textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" id="close{{i.id}}" data-dismiss="modal">Close</button>
+                      <button type="button" onclick="save({{i.id}})" data-user="{{i.user_submitted_job}}"  class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary d-none" id="{{i.id}}" data-toggle="modal" data-target="#exampleModal{{i.id}}">
+                Launch demo modal
+              </button>
+             {% endfor %}
+             {% else %}
+             <h1 class="text-center text-danger">Not Enough data to show</h1>
+             {% endif %}
+          </tbody>
+       </table>
+    </div>
+ </div>
+ 
+
+  
+  <!-- Modal -->
+  
+
+ <script>
+    
+    function Accept(id){
+        thi=event.target;
+        $.ajax({
+            type:'GET',
+            url:'{% url "accept_proof" %}',
+            data:{'id':id},
+            success:function(){
+                $(thi).parents('tr').hide();
+            }
+        })
+    }
+
+    function Reject(id){
+        document.getElementById(id).click();
+    }
+
+
+    function save(id){
+        thi=event.target;
+        var job_id="{{job.job_id}}"
+        var proof_id=id
+        var reason=$(`#reason${id}`).val()
+        var user_submitted_proof=$(thi).attr('data-user');
+        document.getElementById(`close${id}`).click();
+        
+        $.ajax({
+            type:"POST",
+            url:'{% url "reject_proof" %}',
+            data:{'job_id':job_id,'proof_id':proof_id,'reason':reason,csrfmiddlewaretoken: '{{ csrf_token }}','user_submitted_proof':user_submitted_proof},
+            success:function(resp){
+                $(`tr[data-row=${id}]`).hide()
+                alert('Your request has been submitted ! we will review it.If you are right ,then we will reject the worker proof and decrease Done conversion so that other worker can provide you proof.Thanks!')
+            }
+        })
+    }
+ </script>
+
+
+
+{% endblock %}

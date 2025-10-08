@@ -1,0 +1,41 @@
+{% extends "landing/base.html" %}
+{% block title %}{{post.title}}{% endblock %}
+{% block description %}
+<meta name="description" content="{{post.meta_description}}">
+{% endblock %}
+{% block keywords %}
+<meta name="keywords" content="{{post.meta_keywords}}">
+{% endblock %}
+
+{% block content %}
+<style>
+    #content *{
+        text-align: justify;
+        font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+        }
+
+        .title{
+            color:rgb(71, 77, 255);
+        }
+</style>
+<div class="container" style="margin-top:120px ;">
+    
+        <div class="container p-3">
+            <img src="{{post.image.url}}" alt="{{post.keywords}}" title="post.title"  >
+        </div>
+        <br>
+    <h1 class="title">{{post.title}}</h1>
+    <br>
+    <Article id="content" >
+        {{post.content|safe}}
+    </Article>
+</div>
+<br><br>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'home/base.html' %} {% block title %}<title>
+    Deposit Money</title
+  >{% endblock %} {% block content %} {% load static %}
+  <!-- end topbar -->
+  <!-- dashboard inner -->
+ 
+    
+  
+  
+  <div class="midde_cont">
+    <div class="container-fluid">
+      <div class="row column_title">
+        <div class="col-md-12">
+          <div class="page_title">
+            <h2>Deposit Funds with {{method}}</h2>
+          </div>
+        </div>
+      </div>
+      <!-- row -->
+      <div class="row column1">
+        <div class="col-md-12">
+          <div class="white_shd full">
+            <div class="full graph_head heading1 mt-3 ">
+              <marquee behavior="
+              " direction="">
+              <h2 class="text-primary">Send Money From you {{method}} Account to Our {{method}} Account.Do not Forget to Fill the Below Form After sending Money.Our {{method}} Account : {{our}}</h2>
+            </marquee>
+            </div>
+           
+            <div class="container mt-5">
+              <form action="" class="py-3" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group mt-3">
+                  <br>
+                  <input type="text" class="form-control form-control-lg" placeholder="Enter Your {{method}} Account" name="account" required>
+                </div>
+                <div class="form-group mt-3">
+                  <br>
+                  <input type="text" class="form-control form-control-lg" placeholder="Enter Transaction ID" name="TID" required>
+                </div>
+                <div class="form-group mt-3">
+                  <br>
+                  <label for="proof" style="font-size: 19px;">Upload Payment Screenshot</label>
+                  <input type="file" id="proof" accept="image/*" class="form-control form-control-lg mt-2" placeholder="Enter Payment Screenshot" name="proof" required>
+                </div>
+                <div class="form-group mt-3">
+                  <br>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+      <!-- end row -->
+    </div>
+  
+  
+    {% endblock %}
+  </div>
+  

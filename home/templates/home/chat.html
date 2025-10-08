@@ -1,0 +1,373 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>Chat and Earn</title>{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+    *{
+	box-sizing:border-box;
+}
+
+#container{
+	
+	height:800px;
+	background:#ffffff;
+	margin:0 auto;
+	font-size:0;
+	border-radius:5px;
+	overflow:hidden;
+}
+aside{
+	width:260px;
+	height:800px;
+	background-color:#3b3e49;
+	display:inline-block;
+	font-size:15px;
+	vertical-align:top;
+}
+main{
+	/* width:490px;
+	height:800px;
+	display:inline-block; */
+	font-size:15px;
+	vertical-align:top;
+}
+
+aside header{
+	padding:30px 20px;
+}
+aside input{
+	width:100%;
+	height:50px;
+	line-height:50px;
+	padding:0 50px 0 20px;
+	background-color:#5e616a;
+	border:none;
+	border-radius:3px;
+	color:#fff;
+	background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_search.png);
+	background-repeat:no-repeat;
+	background-position:170px;
+	background-size:40px;
+}
+aside input::placeholder{
+	color:black;
+}
+aside ul{
+	padding-left:0;
+	margin:0;
+	list-style-type:none;
+	overflow-y:scroll;
+	height:690px;
+}
+aside li{
+	padding:10px 0;
+}
+aside li:hover{
+	background-color:#5e616a;
+}
+h2,h3{
+	margin:0;
+}
+aside li img{
+	border-radius:50%;
+	margin-left:20px;
+	margin-right:8px;
+}
+aside li div{
+	display:inline-block;
+	vertical-align:top;
+	margin-top:12px;
+}
+aside li h2{
+	font-size:14px;
+	color:#fff;
+	font-weight:normal;
+	margin-bottom:5px;
+}
+aside li h3{
+	font-size:12px;
+	color:#7e818a;
+	font-weight:normal;
+}
+
+.status{
+	width:8px;
+	height:8px;
+	border-radius:50%;
+	display:inline-block;
+	margin-right:7px;
+}
+.green{
+	background-color:#271f6b;
+}
+.orange{
+	background-color:#ff725d;
+}
+.blue{
+	background-color:#1f6b2a;
+	margin-right:0;
+	margin-left:7px;
+}
+
+main header{
+	height:110px;
+	padding:30px 20px 30px 40px;
+}
+main header > *{
+	display:inline-block;
+	vertical-align:top;
+}
+main header img:first-child{
+	border-radius:50%;
+}
+main header img:last-child{
+	width:24px;
+	margin-top:8px;
+}
+main header div{
+	margin-left:10px;
+	margin-right:145px;
+}
+main header h2{
+	font-size:16px;
+	margin-bottom:5px;
+}
+main header h3{
+	font-size:14px;
+	font-weight:normal;
+	color:#7e818a;
+}
+
+#chat{
+	padding-left:0;
+	margin:0;
+	list-style-type:none;
+	overflow-y:scroll;
+	height:535px;
+	border-top:2px solid #fff;
+	border-bottom:2px solid #fff;
+	background-color: moccasin;
+}
+#chat li{
+	padding:10px 30px;
+}
+#chat h2,#chat h3{
+	display:inline-block;
+	font-size:13px;
+	font-weight:normal;
+}
+#chat h3{
+	color:#bbb;
+}
+#chat .entete{
+	margin-bottom:5px;
+}
+#chat .message{
+	padding:20px;
+	color:#fff;
+	line-height:25px;
+	max-width:90%;
+	display:inline-block;
+	text-align:left;
+	border-radius:5px;
+}
+#chat .me{
+	text-align:right;
+}
+#chat .you .message{
+	background-color:#271f6b;
+}
+#chat .me .message{
+	background-color:#1f6b2a;
+}
+#chat .triangle{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 10px 10px 10px;
+}
+#chat .you .triangle{
+		border-color: transparent transparent #1f6b2a transparent;
+		margin-left:15px;
+}
+#chat .me .triangle{
+		border-color: transparent transparent #6fbced transparent;
+		margin-left:375px;
+}
+
+main footer{
+	height:155px;
+	padding:20px 0px 10px 0px;
+}
+main footer textarea{
+	resize:none;
+	border:none;
+	display:block;
+	width:100%;
+	height:80px;
+	border-radius:3px;
+	padding:20px;
+	margin-bottom:13px;
+	border: 2px #ff9595 solid;
+    font-size: 18px;
+}
+main footer textarea::placeholder{
+	color:black;
+}
+main footer img{
+	height:30px;
+	cursor:pointer;
+}
+main footer a{
+	text-decoration:none;
+	text-transform:uppercase;
+	font-weight:bold;
+	color:#6fbced;
+	vertical-align:top;
+	margin-left:333px;
+	margin-top:5px;
+	display:inline-block;
+}
+</style>
+<div id="container" >
+
+<audio controls id="sound" class="d-none">
+	<source src="{% static 'noti.mp3' %}" type="audio/mpeg">
+</audio>
+
+	<main>
+		<header>
+        <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/2x/external-chat-valentines-day-flatart-icons-flat-flatarticons-2.png" height="50" width="50" alt="">
+            <div>
+				<h2>Chat with Fableey </h2>
+				<h3>Chat more,Earn more</h3>
+			</div>
+			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_star.png" alt="">
+		</header>
+		
+		<div id="chat">
+			{% for msg in content %}
+			  {% if request.user.username == msg.user %}
+					<li class="me">
+						<div class="entete">
+							<h2>You</h2>
+							<span class="status blue"></span>
+						</div>
+						<div class="message">
+							{{msg.message}}
+						</div>
+					</li>
+			  {% else %}
+					<li class="you">
+						<div class="entete">
+							<span class="status green"></span>
+							<h2>{{msg.user}}</h2>
+							
+						</div>
+						
+						<div class="message">
+							{{msg.message}}
+						</div>
+					</li>
+			  {% endif %}
+		    {% endfor %}
+		
+			
+		</div>
+		<footer>
+			<textarea placeholder="Type your message" id="msg"></textarea>
+			<button class="btn btn-primary send">Send</button>
+        </footer>
+	</main>
+</div>
+
+<script>
+	$('.send').click(function(){
+		msg=$('#msg').val();
+		data={msg:msg,csrfmiddlewaretoken:'{{ csrf_token }}'}
+		$.ajax({
+			method:'POST',
+			url:'{% url "chat" %}',
+			data:data,
+			success:function(r){
+				
+				$('#msg').val('');
+
+			}
+		})
+	})
+
+
+
+	$("#msg").on('keypress',function(e){
+		// Enter was pressed without shift key
+		if (e.which == 13 && !e.shiftKey)
+		{
+			// prevent default behavior
+			e.preventDefault();
+			$('.send').click();
+		}
+		});
+
+	
+
+	//getting live chat data
+	setInterval(function(){
+		$.ajax({
+			method:'GET',
+			url:'{% url "chats" %}',
+			success:function(r){
+				data=r.data;
+				content=""
+				console.log(data)
+				for(var i=0;i<data.length;i++){
+					login_user="{{request.user}}"
+					var user=data[i].user
+					var msg=data[i].message
+					var content=content+`
+					${user==login_user ? `<li class="me">
+						<div class="entete">
+							<h2>You</h2>
+							<span class="status blue"></span>
+						</div>
+						<div class="message">
+							${msg}
+						</div>
+					</li>` : `<li class="you">
+						<div class="entete">
+							<span class="status green"></span>
+							<h2>${user}</h2>
+							
+						</div>
+						
+						<div class="message">
+							${msg}
+						</div>
+					</li>`}`
+				}
+				$('#chat').html(content);
+				$("#chat").animate({ scrollTop: $('#chat').prop("scrollHeight")}, 'fast');
+			}
+		})
+		
+
+		  
+	},10)
+		
+	var total=(document.querySelectorAll('#chat li')).length;
+
+	setInterval(function(){
+		ele=(document.querySelectorAll('#chat li')).length;
+		console.log(total)
+		console.log(ele)
+		if(ele==total+1){
+			$("#sound").trigger('play');
+			total=ele
+		}
+		
+	},5)
+
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,97 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>Ask Questions from Fableey Customer support?</title> {% endblock %}
+{% block content %}
+{% load static %}
+
+<!-- Bootstrap core CSS -->
+<link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/album/">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<style>
+    .leftsidediv{
+      display:none
+   }
+   .rightsidediv{
+      display:block
+   }
+  
+   @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+body { background:rgb(30,30,40); }
+form { max-width:420px; margin:50px auto; }
+
+.feedback-input {
+  
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight:500;
+  font-size: 18px;
+  border-radius: 5px;
+  line-height: 22px;
+  background-color: transparent;
+  border:2px solid #CC6666;
+  transition: all 0.3s;
+  padding: 13px;
+  margin-bottom: 15px;
+  width:100%;
+  box-sizing: border-box;
+  outline:0;
+}
+
+.feedback-input:focus { border:2px solid #CC4949; }
+
+textarea {
+  height: 150px;
+  line-height: 150%;
+  resize:vertical;
+}
+
+[type="submit"] {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  width: 100%;
+  background:#CC6666;
+  border-radius:5px;
+  border:0;
+  cursor:pointer;
+  color:white;
+  font-size:24px;
+  padding-top:10px;
+  padding-bottom:10px;
+  transition: all 0.3s;
+  margin-top:-4px;
+  font-weight:700;
+}
+[type="submit"]:hover { background:#CC4949; }
+</style>
+</head>
+
+<body>
+    <p class="h1 text-dark text-center mt-3">Fableey Customer support</p>
+    <form action="" method="post" >
+       {% csrf_token %}      
+      <input name="email" type="email" class="feedback-input" placeholder="Your Email"  required/>   
+      <input name="phone" type="tel" class="feedback-input" placeholder="Your Whatsapp"  required/>   
+      <input name="subject" type="text" class="feedback-input" placeholder="Message Title" required />
+      <textarea name="message" class="feedback-input" placeholder="Message Description" required></textarea>
+      <input type="submit" value="Send"/>
+    </form>
+
+</body>
+ 
+
+<style>
+  @media (max-width: 375px) {
+    /*-- small sidebar --*/
+    .icon_info{
+     display: none;
+    }
+    .logo_section{
+        display: block;
+        position: relative;
+        bottom: 6px;
+    }
+}
+</style>
+
+{% endblock %}
+

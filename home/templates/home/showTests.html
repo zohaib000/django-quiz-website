@@ -1,0 +1,91 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}<title>Fableey User Dashboard</title>{% endblock %}
+
+{% block content %}
+{% if messages %}
+
+<style>
+    i {
+        font-size: 50px;
+    }
+
+    .table-responsive {
+        max-height: 40px;
+    }
+</style>
+
+
+{% endif %}
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <marquee behavior="" direction="">
+                        {% for earning,user in earnings %}
+                        <b class="text-danger" style="    color: #ff0018!important;
+                  font-size: 20px;"><i class="fa fa-user"></i> {{user}}</b> <span style="    font-size: 20px;
+                  color: black;">has earned </span><b class="text-dark ml-1 dollar">&nbsp;<i class='fa fa-dollar'
+                                style="
+                     font-size: 25px;font-weight:bold;
+                     color:darkblue;">{{earning}}</i> </b>&emsp;
+                        {% endfor %}
+                    </marquee>
+                </div>
+            </div>
+        </div>
+
+        {% if messages %}
+        {% for message in messages %}
+        <p class="alert alert-danger">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="row column1 mt-2">
+
+            {% for test in tests %}
+            <div class="col-md-6 col-lg-3">
+                <div class="full counter_section margin_bottom_30">
+                    <div class="couter_icon">
+                        <div class="d-flex justify-content-center">
+                            <img src="{{test.test_image.url}}" height="100" width="100">
+                        </div>
+                    </div>
+                    <div class="counter_no py-4">
+                        <div>
+                            <p class="total_no">{{jobs_earning}}</p>
+                            <p class="head_couter" id="caption">{{test.test_name}}</p>
+                        </div>
+                    </div>
+
+                    <div class="counter_no py-4 d-flex justify-content-center">
+                        <a class="btn btn-primary btn-lg" href="{% url 'takeTest' test.id %}">Take Test</a>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+
+
+
+        </div>
+
+
+    </div>
+
+    <style>
+        #caption {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-family: poppins;
+            color: tomato;
+        }
+
+        .total_no {
+            font-family: 'Franklin Gothic Medium';
+            color: #000000ba;
+        }
+    </style>
+    {% endblock %}

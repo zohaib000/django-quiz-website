@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+{% load thumbnail %}
+{% load static %}
+
+<style>
+   .sidebar-icon {
+      margin-top: 4px;
+   }
+</style>
+
+<head>
+   <!-- Google tag (gtag.js) -->
+   <!-- Google tag (gtag.js) -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZ58NTVPTY"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-ZZ58NTVPTY');
+   </script>
+   <meta name="google-site-verification" content="r-xNb74gHuMMRYmOjntSRYS3F67gGazqYlNkvLFAm_s" />
+   {% block title %}{% endblock %}
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta property="og:image" content="{% static 'prev.png' %}" />
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <meta name="google-site-verification" content="r-xNb74gHuMMRYmOjntSRYS3F67gGazqYlNkvLFAm_s" />
+   <!-- site metas -->
+
+
+
+   <link href="{% static 'share.png' %}" rel="icon">
+   <link href="{% static 'share.png' %}" rel="apple-touch-icon">
+   <!-- bootstrap css -->
+   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+   <!-- <link rel="stylesheet" href="{% static 'css/jquery.fancybox.css' %}" /> -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+   <!-- site css -->
+   <link rel="stylesheet" href="{% static 'style.css' %}" />
+   <!-- responsive css -->
+   <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+   <!-- color css -->
+   <link rel="stylesheet" href="{% static 'css/colors.css' %}" />
+   <!-- select bootstrap -->
+   <link rel="stylesheet" href="{% static 'css/bootstrap-select.css' %}" />
+   <!-- scrollbar css -->
+   <link rel="stylesheet" href="{% static 'css/perfect-scrollbar.css' %}" />
+   <!-- custom css -->
+   <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+
+   <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/css/flag-icon.min.css" />
+
+   <script src="{% static 'js/jquery2.js' %}"></script>
+
+
+   <style>
+      .icon_info ul.user_profile_dd li>a::after {
+         display: none;
+      }
+
+      .user_profile_dd .dropdown-menu {
+         background-color: azure;
+      }
+
+      #sidebar ul li a {
+         font-size: 18px;
+         font-family: calibri;
+      }
+   </style>
+</head>
+
+<body class="dashboard dashboard_1">
+   <div class="full_container">
+      <div class="inner_container">
+         <!-- Sidebar  -->
+         <nav id="sidebar">
+            <div class="sidebar_blog_1">
+               <div class="sidebar-header">
+                  <div class="logo_section">
+                     <!-- <a href="{% url 'home' %}"><img class="logo_icon img-responsive" src="{% static 'a.png' %}"
+                           alt="Logo" /></a> -->
+                  </div>
+               </div>
+               <div class="sidebar_user_info">
+                  <div class="icon_setting"></div>
+                  <div class="user_profle_side">
+                     <div class="user_img"><img class="img-responsive rounded-circle" style="height: 75px;width: 150px;"
+                           src="{% if request.user.is_authenticated %}{{user.profile_image|thumbnail_url:'avatar'}}{% else %}media/profile pics/demo_profile.png{% endif %}"
+                           alt="logo" /></div>
+                     <div class="user_info">
+                        <h6>{% if request.user.is_authenticated %}{{request.user}}{% else %}Guest{% endif %}</h6>
+                        <p><span class="online_animation"></span> Online</p>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="sidebar_blog_2">
+               <h4>General</h4>
+               <ul class="list-unstyled components">
+                  <li class="active">
+                     <a href="{% url 'home' %}" aria-expanded="false"><i class="fa fa-dashboard sidebar-icon"
+                           style="color: #61d3ff;"></i> <span>Dashboard</span></a>
+
+                  </li>
+
+                  <li><a href="{% url 'showTests' %}"><i class="fa fa-upload sidebar-icon" style="color:#00ffa1;"></i> <span>Take
+                           Test</span></a></li>
+                  <li><a href="{% url 'notifications' %}"><i class="fa fa-briefcase sidebar-icon" style="color:aliceblue;"></i>
+                        <span>Notifications</span></a></li>
+                  <li><a href="{% url 'help' %}"><i class="fa fa-send text-warning sidebar-icon"></i> <span>Fableey Support</span></a>
+                  </li>
+                  <li><a href="{% url 'user_profile' %}"><i class="fa fa-cog red_color sidebar-icon"></i> <span>Profile
+                           Settings</span></a></li>
+                  <li><a href="{% url 'logo' %}"><i class="fa fa-sign-out yellow_color sidebar-icon"></i> <span>Log out
+                        </span></a>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+         <!-- end sidebar -->
+         <!-- right content -->
+         <div id="content">
+            <!-- topbar -->
+            <div class="topbar">
+               <nav class="navbar navbar-expand-lg navbar-light">
+                  <div class="full">
+                     <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i
+                           class="fa fa-bars"></i></button>
+                     <!-- <div class="logo_section">
+                        <a href="{% url 'home' %}" class=""><img class="img-responsive" src="{% static 'Fably.png' %}"
+                              style="height: 45px;" alt="Fably logo" /></a>
+                     </div> -->
+                     <div class="right_topbar">
+                        <div class="icon_info">
+                           <ul>
+                              <li><a href="{% url 'notifications' %}"><i class="fa fa-bell-o"></i>{% if total > 0 %}
+                                    {% if us %}<span class="badge">{{total}}</span>
+                                    {% endif %}
+                                    {% endif %}</a></li>
+                              <li><a href="{% url 'help' %}"><i class="fa fa-question-circle"></i></a></li>
+                           </ul>
+
+                           <ul class="user_profile_dd">
+                              <li>
+                                 <a class="dropdown-toggle" data-toggle="dropdown">
+                                    {% if request.user.is_authenticated %}
+                                    <img class="img-responsive rounded-circle"
+                                       style="height: 50px;width: 50px;margin-top:1px;"
+                                       src="{{user.profile_image|thumbnail_url:'avatar'}}" alt="User profile" />
+
+                                    <span class="name_user">{{request.user}}</span></a>
+                                 {% endif %}
+                                 <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{% url 'user_profile' %}">My Profile</a>
+                                    <a class="dropdown-item" href="{% url 'change_password' %}">Passwords</a>
+                                    <a class="dropdown-item" href="{% url 'logo' %}"><span>Log Out</span> <i
+                                          class="fa fa-sign-out"></i></a>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </nav>
+            </div>
+            <!-- end topbar -->
+            <!-- dashboard inner -->
+            {% block content %}
+            {% endblock %}
+            <div class="container-fluid" style="float: left;">
+               <div class="footer">
+                  <p style="font-weight: bold;color: rgb(0, 0, 0);font-family:Arial, Helvetica, sans-serif;">Copyright ©
+                     2021 Fableey.com. All rights reserved.
+                  </p>
+               </div>
+            </div>
+            <!-- jQuery -->
+            <script src="{% static 'js/jquery.js' %}"></script>
+            <script src="{% static 'js/popper.min.js' %}"></script>
+            <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+
+            <!-- wow animation -->
+            <script src="{% static 'js/animate.js' %}"></script>
+            <!-- select country -->
+            <script src="{% static 'js/bootstrap-select.js' %}"></script>
+            <!-- owl carousel -->
+            <script src="{% static 'js/owl.carousel.js' %}"></script>
+            <!-- chart js -->
+            <script src="js/wow.min.js"></script>
+            <script>
+               new WOW().init();      
+            </script>
+            <!-- nice scrollbar -->
+            <script src="{% static 'js/perfect-scrollbar.min.js' %}"></script>
+            <script>
+               var ps = new PerfectScrollbar('#sidebar');
+            </script>
+            <!-- custom js -->
+            <script src="{% static 'js/custom.js' %}"></script>
+            <script src="{% static 'js/chart_custom_style1.js' %}"></script>
+
+
+            {% block script %}
+            {% endblock %}
+
+
+
+</body>
+
+</html>

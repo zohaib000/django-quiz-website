@@ -1,0 +1,84 @@
+{% extends 'home/base.html' %} {% block title %}<title>
+    Deposit Money with Coinbase</title
+  >{% endblock %} {% block content %} {% load static %}
+  <!-- end topbar -->
+  <!-- dashboard inner -->
+ 
+    
+  <style>
+    #checkout{
+        animation: zoom 2s infinite;
+    }
+    @keyframes zoom {
+        5% {
+            -webkit-transform: scale(1);
+        }
+        50% {
+            -webkit-transform: scale(1.4);
+        }
+        75% {
+            -webkit-transform: scale(1);
+        }
+        75% {
+            -webkit-transform: scale(1.4);
+        }
+    }
+    #checkout:hover{
+        background-color: rgb(0 196 255);
+        border: 1px solid rgb(0 196 255);
+    }
+  </style>
+  
+  <div class="midde_cont">
+    <div class="container-fluid">
+      <div class="row column_title">
+        <div class="col-md-12">
+          <div class="page_title">
+            <h2>Deposit Funds with Cryptocurriences & Coinbase</h2>
+          </div>
+        </div>
+      </div>
+
+      
+      <!-- row -->
+      <div class="row column1">
+        <div class="col-md-12">
+          <div class="white_shd full">
+            <div class="full graph_head heading1 mt-3 ">
+              <marquee behavior="
+              " direction="">
+              <h2 class="text-primary">Complete checkout using coinbase or other wallets by clicking on Checkout Button.After that Fill and submit the Below Form to deposit money in to your Account.</h2>
+            </marquee>
+            <center><a id="checkout" href="https://commerce.coinbase.com/checkout/d33aecdc-50ef-4fda-82e1-cb3278385b00" class="btn btn-lg btn-warning" target="_blank">Checkout</a></center>
+            </div>
+           
+            <div class="container mt-5">
+              <form action="" class="py-5" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group mt-5">
+                  <input type="text" class="form-control form-control-lg" placeholder="Enter Transaction ID if you have (optional)" name="TID" optional >
+                </div>
+                <div class="form-group mt-2">
+                  <br>
+                  <label for="proof" style="font-size: 19px;">Upload Payment Screenshot</label>
+                  <input type="file" id="proof" accept="image/*" class="form-control form-control-lg mt-2" placeholder="Enter Payment Screenshot" name="proof" required>
+                </div>
+                <div class="form-group mt-3">
+                  <br>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+      <!-- end row -->
+    </div>
+  
+  
+    {% endblock %}
+  </div>
+  

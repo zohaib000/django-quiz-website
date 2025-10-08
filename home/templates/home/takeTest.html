@@ -1,0 +1,378 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}<title>Fableey User Dashboard</title>{% endblock %}
+
+{% block content %}
+
+<style>
+    .form-check-input {
+        height: 15px !important;
+        width: 15px !important;
+    }
+
+    i {
+        font-size: 50px;
+    }
+
+    .table-responsive {
+        max-height: 40px;
+    }
+
+    .right {
+        border: 7px lime solid;
+    }
+
+    .wrong {
+        border: 7px rgb(255, 2, 2) solid;
+    }
+
+    .green {
+        font-weight: bold;
+        color: green;
+    }
+
+    .container:nth-child(1) {
+        background-color: rgb(255, 255, 255);
+        margin: 8px auto;
+        padding-bottom: 5px;
+        width: 60vw;
+        border-radius: 4%;
+
+
+
+    }
+
+    .qs {
+        padding: 20px 5px;
+        font-size: 30px;
+    }
+
+    #btns {
+        display: flex;
+    }
+
+
+
+    input[type=radio] {
+        transform: scale(2);
+        cursor: pointer;
+
+    }
+
+    .form-check {
+        margin-top: 65px;
+    }
+
+    .options {
+        padding: 0px 15px;
+        font-size: 22px;
+    }
+
+    .form-check-label {
+        margin-left: 6px;
+    }
+</style>
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <marquee behavior="" direction="">
+                        {% for earning,user in earnings %}
+                        <b class="text-danger" style="    color: #ff0018!important;
+                  font-size: 20px;"><i class="fa fa-user"></i> {{user}}</b> <span style="    font-size: 20px;
+                  color: black;">has earned </span><b class="text-dark ml-1 dollar">&nbsp;<i class='fa fa-dollar'
+                                style="
+                     font-size: 25px;font-weight:bold;
+                     color:darkblue;">{{earning}}</i> </b>&emsp;
+                        {% endfor %}
+                    </marquee>
+                </div>
+            </div>
+        </div>
+
+        {% if messages %}
+        {% for message in messages %}
+        <p class="alert alert-danger">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="row column1 mt-2">
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <input type="hidden" id="question_id">
+        <input type="hidden" id="test_id">
+        <div class="row qs">
+            <h1 id="question">which language is used as backend in web development?</h1>
+        </div>
+        <div class="options">
+            <div class="form-check mt-0">
+                <input type="radio" class="form-check-input" name="ans">
+                <label class="form-check-label" id="opt1"></label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="ans">
+                <label class="form-check-label" id="opt2"></label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="ans">
+                <label class="form-check-label" id="opt3"></label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="ans">
+                <label class="form-check-label" id="opt4"></label>
+            </div>
+        </div>
+
+
+        <div id="btns" class="justify-content-between mt-5">
+            <button class="btn btn-lg btn-warning prev">Prev</button>
+            <!-- <button class="btn btn-lg btn-info show">Show Answer</button> -->
+            <button class="btn btn-lg btn-warning next">Next</button>
+            <button class="btn btn-lg btn-warning" id="submitBtn">Submit</button>
+
+        </div>
+    </div>
+
+    <script>
+
+        var questions = "{{ questions| safe }}";
+        const validJsonString = questions.replace(/'/g, '"');
+        const jsonData = JSON.parse(validJsonString);
+
+        var quizes = []
+        jsonData.forEach(question => {
+            console.log(question)
+            const data = {
+                "test_id": question["test_id"],
+                "id": question["id"],
+                "qs": question["question_text"],
+                "ans1": question["option1"],
+                "ans2": question["option2"],
+                "ans3": question["option3"],
+                "ans4": question["option4"],
+                "answer": question["question_text"],
+            }
+            quizes.push(data)
+        });
+
+
+        // var quizes = [
+        // {
+        //     'qs': 'As you know very well that there is a large development cycle used to develop web pages ,do you know about that,can you help me in our project that ?',
+        //         'ans1': 'Hyper Text Markup Language',
+        //             'ans2': 'Javascript object notation',
+        //                 'ans3': 'Cascading style sheet',
+        //                     'ans4': 'None of the above',
+        //                         'answer': 1,
+        //     },
+        // {
+        //     'qs': 'which language is basic for web development?',
+        //         'ans1': 'HTML',
+        //             'ans2': 'CSS',
+        //                 'ans3': 'PYTHON',
+        //                     'ans4': 'None of the above',
+        //                         'answer': 2,
+
+        //     },
+        // {
+        //     'qs': 'What is your Name?',
+        //         'ans1': 'Zohaib',
+        //             'ans2': 'Hassan',
+        //                 'ans3': 'Unknown',
+        //                     'ans4': 'i dont care',
+        //                         'answer': 3,
+
+        //     },
+        // {
+        //     'qs': 'Did you like my effort?',
+        //         'ans1': 'Yes',
+        //             'ans2': 'No',
+        //                 'ans3': 'Never',
+        //                     'ans4': 'As usual',
+        //                         'answer': 4,
+
+        //     },
+        // ]
+        question = $('#question');
+        question_id = $("#question_id")
+        test_id = $("#test_id")
+        opt1 = $('#opt1');
+        opt2 = $('#opt2');
+        opt3 = $('#opt3');
+        opt4 = $('#opt4');
+
+
+        current = 0;
+        function show(current) {
+            quiz = quizes[current];
+            question.html(quiz.qs);
+            opt1.html(quiz.ans1);
+            opt2.html(quiz.ans2);
+            opt3.html(quiz.ans3);
+            opt4.html(quiz.ans4);
+            question_id.val(quiz.id)
+            test_id.val(quiz.test_id)
+            $("input[type='radio'][name=ans]:eq(0)").val(1);
+            $("input[type='radio'][name=ans]:eq(1)").val(2);
+            $("input[type='radio'][name=ans]:eq(2)").val(3);
+            $("input[type='radio'][name=ans]:eq(3)").val(4);
+
+
+        }
+        show(current)
+
+        // Next Button
+        var outputData = {}
+
+        $('.next').click(function () {
+            // saving user selected option
+            var optionMap = {
+                "1": "a",
+                "2": "b",
+                "3": "c",
+                "4": "d"
+            };
+            var selectedRadioButton = document.querySelector('input[name="ans"]:checked');
+            var selectedQuestion = document.querySelector('#question_id').value;
+            var selectedTest = document.querySelector('#test_id').value;
+            if (selectedRadioButton) {
+                var selectedOption = selectedRadioButton.value;
+                outputData[selectedQuestion] = optionMap[selectedOption];
+                outputData["selectedTest"] = selectedTest
+                console.log(outputData)
+            } else {
+                alert("Please select some option");
+                return;
+            }
+
+            // other operations
+
+            $('.container').removeClass('right wrong');
+            $('.form-check-label').removeClass('green');
+            current = current + 1;
+            if (current >= quizes.length) {
+                alert("No More Questions.")
+                current = current - 1
+                return;
+            }
+            show(current);
+            $(".form-check-input").prop('checked', false);
+            $('.container').addClass('animated bounceInRight');
+
+
+        })
+
+        // Previous Button
+        $('.prev').on('click', function () {
+            $('.container').removeClass('right wrong');
+            $('.form-check-label').removeClass('green');
+            current = current - 1;
+            if (current < 0) {
+                // current = quizes.length - 1;
+                alert("Please press Next...")
+                current = current + 1;
+                return;
+            }
+
+            show(current);
+            $(".form-check-input").prop('checked', false);
+            $('.container').addClass('animated bounceInLeft');
+        })
+
+
+
+        $('#submitBtn').click(function (event) {
+            $('.next').click()
+
+            event.preventDefault();
+
+            // Serialize form data
+            console.log(JSON.stringify(outputData))
+            const json_data = { result: JSON.stringify(outputData) }
+
+            console.log(json_data)
+            $.ajax({
+                type: 'POST',
+                url: '{% url "sendOutputData" %}',
+                data: json_data,
+                success: function (response) {
+                    alert('Test Submitted Successfully !');
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log('Failed to send data:', errmsg);
+                }
+            });
+        });
+
+        // Show Answer Button
+        // $('.show').click(function () {
+        //     $('.container').removeClass('animated bounce right wrong tada rotateIn');
+        //     radios = $('input[name="ans"]').filter(':checked').val();
+        //     quiz = quizes[current];
+        //     container = $('.container');
+
+        //     if (radios == quiz.answer) {
+        //         $(`input[name="ans"][value="${quiz.answer}"]`).next().addClass('green');
+        //         container.removeClass('animated tada wrong');
+        //         container.addClass('animated bounce right');
+        //         const audio = new Audio("https://freesound.org/data/previews/501/501690_1661766-lq.mp3");
+        //         audio.play();
+        //     } else {
+        //         $(`input[name="ans"][value="${quiz.answer}"]`).next().addClass('green');
+        //         container.removeClass('animated bounce right');
+        //         container.addClass('animated tada wrong');
+        //     }
+
+
+        // })
+
+
+
+
+        //window events
+        $(document).keydown(function (e) {
+            if (e.which == 37) {
+                $('.container').removeClass('right wrong');
+                $('.form-check-label').removeClass('green');
+                current = current - 1;
+                if (current < 0) {
+                    // current = quizes.length - 1;
+                    alert("No More Questions.")
+                }
+                show(current);
+                $(".form-check-input").prop('checked', false);
+                $('.container').addClass('animated bounceInLeft');
+            } else if (e.which == 39) {
+                $('.container').removeClass('right wrong');
+                $('.form-check-label').removeClass('green');
+                current = current + 1;
+                if (current >= quizes.length) {
+                    current = 0;
+                    alert("No More Questions.")
+                }
+                show(current);
+                $(".form-check-input").prop('checked', false);
+                $('.container').addClass('animated bounceInRight');
+            }
+        })
+
+
+        // remove validation classes on radio change 
+
+        $('input[type="radio"]').on('change', function () {
+            $(`input[name="ans"][value="${quiz.answer}"]`).next().removeClass('green');
+            $('.container').removeClass('animated bounce right wrong tada bounceInRight bounceInLeft');
+        })
+
+        // removing rotate classes on mouse over,mouse leave
+        $('.next,.prev').on('mouseenter mouseover', function () {
+            $('.container').removeClass('animated bounceInRight bounceInLeft');
+        })
+    </script>
+
+    {% endblock %}

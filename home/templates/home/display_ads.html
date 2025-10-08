@@ -1,0 +1,462 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>Fably Display Ads</title>{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+   #upgrade{
+      font-size: 40px;
+   }
+
+   @media screen and (max-width: 651px){
+#upgrade{
+   font-size: 20px;
+}
+}
+@media screen and (max-width: 343px){
+#upgrade{
+   font-size: 16px;
+}
+}
+@media screen and (max-width: 282px){
+#upgrade{
+   font-size: 13px;
+}
+}
+@media screen and (max-width: 232px){
+#upgrade{
+   font-size: 11px;
+}
+}
+
+
+
+
+#horizontal_link{
+   font-size: 50px;
+   color: rgb(35, 132, 177);
+}
+#promote{
+   position: relative;
+   left: 130px;
+   top:28px;
+
+}
+#logo-img{
+   
+   margin-top: 10px;
+}
+@media screen and (min-width: 991px){
+#square{
+   width: 277px;
+}
+}
+@media screen and (min-width: 670px) and (max-width:768px){
+.outer{
+   width: 100%;
+   margin-left: 30%;
+}
+#logo-img{
+   display: none;
+}
+#square_img{
+   
+   width: 100%;
+   height: 80%;
+}
+#promote{
+   display: none;
+   position: relative;
+   left: 206px;
+   top:28px;
+
+}
+
+}
+
+@media screen and (min-width: 530px) and (max-width:670px){
+.outer{
+   width: 100%;
+   margin-left: 23%;
+}
+#logo-img{
+   display: none;
+}
+#square_img{
+   width: 100%;
+   height: 80%;
+}
+#promote{
+   position: relative;
+   left: 106px;
+   display: none;
+   top:28px;
+
+}
+
+}
+
+@media screen and (min-width: 500px) and (max-width:530px){
+.outer{
+   width: 100%;
+   margin-left: 20%;
+}
+#square_img{
+   width: 100%;
+   height: 80%;
+}
+#promote{
+   position: relative;
+   left: 206px;
+   display: none;
+
+   top:28px;
+
+}
+
+}
+
+@media screen and (min-width: 420px) and (max-width:500px){
+.outer{
+   width: 100%;
+   margin-left: 10%;
+}
+#square_img{
+   width: 100%;
+   height: 80%;
+}
+#promote{
+   position: relative;
+   left: 106px;
+   display: none;
+   top:28px;
+
+}
+
+}
+
+@media screen and (min-width: 350px){
+#square{
+   width: 360px;
+}
+#square_img{
+   width: 360px;
+   height: 80%;
+}
+#promote{
+   position: relative;
+   left: 126px;
+   top:28px;
+
+}
+
+}
+@media screen and (min-width: 341px){
+#square{
+   width: 300px;
+}
+#square_img{
+   width: 300px;
+   height: 70%;
+}
+#promote{
+   position: relative;
+   left: 120px;
+   display: none;
+   top:28px;
+
+}
+
+}
+
+@media screen and (max-width: 340px){
+#square{
+   width: 290px;
+}
+#square_img{
+   width: 290px;
+   height: 80%;
+}
+#promote{
+   position: relative;
+   left: 116px;
+   top:28px;
+   display: none;
+
+
+}
+
+}
+
+@media screen and (max-width: 324px){
+#square{
+   width: 270px;
+}
+#square_img{
+   width: 270px;
+   height: 70%;
+}
+#promote{
+   position: relative;
+   left: 100px;
+   top:28px;
+   display: none;
+
+}
+
+
+}
+
+@media screen and (max-width: 304px){
+#square{
+   width: 250px;
+}
+#square_img{
+   width: 250px;
+   height: 70%;
+}
+#promote{
+   position: relative;
+   left: 80px;
+    top:28px;
+    display: none;
+
+ }
+
+}
+
+@media screen and (max-width: 282px){
+#square{
+   width: 220px;
+}
+#square_img{
+   width: 220px;
+   height: 70%;
+}
+#promote{
+   position: relative;
+   left: 60px;
+   top:28px;
+   display: none;
+
+}
+#below{
+  margin-top: 24px;
+}
+
+}
+
+@media screen and (max-width: 262px){
+#square{
+   width: 200px;
+}
+#square_img{
+   width: 200px;
+   height: 70%;
+}
+#promote{
+   position: relative;
+   left: 40px;
+   top:28px;
+   display: none;
+
+}
+
+}
+
+
+@media screen and (max-width: 232px){
+#square{
+   width: 170px;
+}
+#square_img{
+   width: 170px;
+   height: 70%;
+}
+#promote{
+   position: relative;
+   left: 20px;
+   top:28px;
+   display: none;
+
+}
+
+}
+
+
+@media screen and (max-width: 700px){
+#horizontal_img{
+   width: 600px;
+   height: 80%;
+   
+}
+}
+
+@media screen and (max-width: 654px){
+#horizontal_img{
+   width: 600px;
+   height: 70%;
+
+   
+}
+#horizontal_link{
+   font-size: 40px;
+}
+}
+
+@media screen and (max-width: 607px){
+#horizontal_img{
+   width: 550px;
+   height: 55%; 
+}
+#horizontal_link{
+   font-size: 40px;
+}
+}
+
+@media screen and (max-width: 556px){
+#horizontal_img{
+   width: 504px;
+   
+}
+}
+
+@media screen and (max-width: 504px){
+#horizontal_img{
+   width: 450px;
+   
+}
+#horizontal_link{
+   font-size: 35px;
+}
+}
+
+@media screen and (max-width: 457px){
+#horizontal_img{
+   width: 400px;
+   
+}
+#horizontal_link{
+   font-size: 30px;
+}
+}
+
+@media screen and (max-width: 401px){
+#horizontal_img{
+   width: 340px;
+   
+}
+}
+
+@media screen and (max-width: 390px){
+#horizontal_link{
+   font-size: 25px;
+   
+}
+}
+
+@media screen and (max-width: 352px){
+#horizontal_img{
+   width: 280px;
+   
+}
+}
+
+@media screen and (max-width: 330px){
+
+#horizontal_link{
+   font-size: 20px;
+   
+}
+}
+
+@media screen and (max-width: 324px){
+#horizontal_img{
+   width: 260px;
+   
+}
+#horizontal_link{
+   font-size: 20px;
+   
+}
+#main-text{
+   font-size: 20px;
+}
+}
+@media screen and (max-width: 300px){
+#horizontal_img{
+   width: 240px;
+   
+}
+}
+@media screen and (max-width: 249px){
+#horizontal_img{
+   width: 210px;
+   
+}
+}
+
+
+@media screen and (max-width: 228px){
+#horizontal_img{
+   width: 190px;
+   
+}
+}
+</style>
+
+<h2 class="text-center mt-5" id="main-text">Click and Earn! </h2>
+<br><br><br>
+<!-- 
+<div  style="margin: 0;padding: 0;background-color: rgba(0, 0, 0, 0.788)(201, 0, 0, 0.788);">
+               
+   <a href="{% url 'home' %}"><img  id="horizontal_img" src="{% static 'ads/logos.png' %}" height="221" width="100%" alt=""></a>
+   <br><br><a href="#" id='horizontal_link'>Best Online Canva Editors!</a>
+   <br><br><p >Promoted By &nbsp;<a  href="{% url 'home' %}" ><img style="margin-bottom:6px;" src="{% static 'logos.png' %}" alt="" height="20" width="55"></a></p>
+    
+</div>     -->
+<body class="inner_page widgets">
+   
+            
+                  <!-- row -->
+                  <div class="row column1 ">
+                     {% for ad in ads %}
+                     {% if ad.remaining > 0 %}
+                     <div class="col-md-6 col-lg-4 mt-5 outer" id="{{forloop.counter}}" for="{{forloop.counter}}">
+                        <div class="col-md-12 col-lg-4  margin_bottom_30 ">
+                        <div class="white_shd full" id="square">
+                        <a href='http://127.0.0.1:8000/clicks_count/{{request.user}}/{{ad.id}}'  onclick="loady({{forloop.counter}})" target="_blank"><img src="{{ad.image.url}}" height="260" id="square_img" width="275" alt=""></a>
+                        <a href='http://127.0.0.1:8000/clicks_count/{{request.user}}/{{ad.id}}' onclick="loady({{forloop.counter}})"  target="_blank" style="font-size: 19px;color: rgb(35, 132, 177);" id="ad_link">{{ad.title}}</a>
+                        <p style="" id="promote">Promoted By</p>
+                        <a style="float: right;position:relative;bottom: 10px;" href="{% url 'home' %}"><img src="{% static 'logos.png' %}" id="logo-img" alt="" height="20" width="55"></a>
+                        <div id="below">
+                        Remaining:<p>{{ad.remaining}}</p>
+                        Clicked:<p>{{ad.clicked}}</p>
+                        <button class="btn btn-warning " style="font-size: 17px;"><i class="fa fa-dollar text-dark" style="font-weight: bold;">0.006 </i></button>
+                        </div> 
+                     </div>
+                     </div>
+                  </div>
+                  {% endif %}
+                     {% endfor %}
+                   
+                  </div>
+               <br>
+                 <center><a class="btn btn-primary"  href="{% url 'premium_account' %}" id="upgrade">Upgrade Account to Get more Ads</a></center>
+                 <a href="{% url 'display_ads' %}" id="url">.</a>
+   </body><br>
+
+             
+<script>
+function loady(e){
+   document.getElementById(e).style.display='none';
+   
+
+   
+   // setInterval(() => {
+   // document.getElementById('url').click();
+   // }, 100);
+}  
+    
+</script>
+{% endblock %}
+

@@ -1,0 +1,261 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>Read Job Detail and Get Income!</title>{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+   @media screen and (max-width:1000px){
+      .title{
+         display: none;
+      }
+   }
+
+   @media screen and (max-width:896px){
+      .job-details p{
+         font-size:15px;
+      }
+   }
+   @media screen and (min-width:576px) and (max-width:598px){
+      .job-details p{
+         font-size:13px;
+      }
+   }
+   @media screen and (min-width:325px) and (max-width:330px){
+      .job-details p{
+         font-size:13px;
+      }
+   }
+
+   .labels {
+      margin-top: 5px;
+      margin-bottom: 4px;
+      font-size: 20px;
+      color: #000000;
+      font-weight: bold;
+      font-family: calibri;
+   }
+
+   .complete {
+      font-size: 30px;
+      font-family: calibri;
+   }
+
+   .complete:hover {
+      background-color: cyan;
+      border: 1px cyan solid;
+   }
+
+   @media screen and (max-width:728px) {
+      textarea {
+         width: 85%;
+      }
+
+      h2,
+      h3 {
+         font-size: 23px;
+      }
+
+      #table {
+         display: none;
+      }
+
+   }
+
+   @media screen and (max-width:358px) {
+      textarea {
+         width: 85%;
+         height: 60%;
+      }
+
+      h2,
+      h3 {
+         font-size: 18px;
+         line-height: 1.3;
+      }
+   }
+
+
+   * {
+      font-family: calibri;
+   }
+
+
+   .job-item {
+      color: black;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: monospace;
+   }
+
+   p {
+      font-size: 20px;
+      line-height: 1.5;
+   }
+
+   .define {
+      font-weight: bold;
+      color: #056e17;
+   }
+
+   .desc {
+      font-weight: bolder;
+   }
+
+   #proofs a {
+      color: white;
+   }
+
+   #proofs a:hover {
+      color: blueviolet;
+   }
+
+   table * {
+      font-size: 20px;
+   }
+
+   #description{
+      color: rgb(6, 65, 165);
+   }
+
+</style>
+<br>
+{% if job.allowed_countries != "All" %}
+<h1>Countries Selected for Job</h1>
+<br>
+{% for flag in countries %}
+<span class="flag-icon flag-icon-{{flag|slice:'1:-1' }}" id="flag" style="font-size: 50px;margin-top:3px;"></span>&nbsp;&nbsp;
+{% endfor %}
+{% endif %}
+<div class="container-fluid">
+   <div class="container-fluid mt-5">
+      <p class="job-item text-danger" style="font-family: calibri;">Job id : {{job.job_id}} </p>
+
+      <h1 style="font-family: revert;font-size:35px;font-weight: bold;">{{job.job_title}}</h1>
+      <p class="mt-2" id="description">{{job.job_description|linebreaks}}</p>
+      <h1 class="text-center bg-primary text-white mt-4" style="font-size:30px;font-family:calibri;">Job Details</h1>
+      <div class="row mt-3 p-2 job-details">
+         <div class="col-sm-3 col-6">
+            <p class="define">You will Earn</p>
+            <p class="desc">${{job.job_price_per}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Overall Price</p>
+            <p class="desc">${{job.overall_price}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Feature Price</p>
+            <p class="desc">${{job.feature_price}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Posted On</p>
+            <p class="desc">{{job.date_time_when_posted}}</p>
+         </div>
+        
+         <div class="col-sm-3 col-6">
+            <p class="define">Total Conversions</p>
+            <p class="desc">{{job.total_conversions}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Done Conversions</p>
+            <p class="desc">{{job.done_conversions}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Posted From</p>
+            <p class="desc">{{job.country}}</p>
+         </div>
+         <div class="col-sm-3 col-6">
+            <p class="define">Job Type</p>
+            <p class="desc">{% if job.allowed_countries == "All" %}International
+               {% else %}Selective{% endif %}
+            </p>
+         </div>
+      </div>
+   </div>
+
+
+   <div class="container-fluid mt-4">
+      <h1 class="text-center bg-primary text-white p-3           ">Submit Your Work</h1>
+   </div>
+
+   <div class="container-fluid mt-4">
+      <form action="" method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+
+         <div class="form-group mt-1">
+            <p for="" class="labels">{{job.proof1}}</p>
+            {% if job.proof1_type == 'textarea' %}<{{job.proof1_type}} name="proof1" id="" class="form-control" cols="100"
+               rows="6" required></{{job.proof1_type}}>{% else %}<input type="{{job.proof1_type}}" name="proof1"
+               class="form-control" id="" required>{% endif %}
+         </div>
+         
+         <div class="form-group mt-4">
+            <p for="" class="labels">{{job.proof2}}</p>
+            {% if job.proof2_type == 'textarea' %}<{{job.proof2_type}} name="proof2" class="form-control" id="" cols="100"
+               rows="6" required></{{job.proof2_type}}>{% else %}<input type="{{job.proof2_type}}" name="proof2" id=""
+               required class="form-control">{% endif %}
+         </div>
+         
+         <div class="form-group mt-4">
+            <p class="labels" for="">{{job.proof3}}</p>
+            {% if job.proof3_type == 'textarea' %}<{{job.proof3_type}} name="proof3" id="" cols="100" class="form-control"
+               rows="6" required></{{job.proof3_type}}>{% else %}<input type="{{job.proof3_type}}" name="proof3" id=""
+               class="form-control" required>{% endif %}
+         </div>
+        
+         <div class="form-group mt-4">
+            <p class="labels" for="">{{job.proof4}}</p>
+            {% if job.proof4_type == 'textarea' %}<{{job.proof4_type}} name="proof4" id="" cols="100" class="form-control"
+               rows="6" required></{{job.proof4_type}}>{% else %}<input type="{{job.proof4_type}}" name="proof4" id=""
+               required class="form-control">{% endif %}
+         </div>
+
+         <div class="form-group mt-4">
+            <center><button type="submit" class="btn btn-warning complete" style="font-size:20px;">Complete Work</button>
+            </center>
+         </div>
+       
+      </form>
+   </div>
+</div>
+<br><br>
+
+
+
+<br>
+
+<div class=" mt-3">
+   <div class="white_shd full margin_bottom_30">
+      <div class="full graph_head">
+         <div class="heading1 margin_0">
+            <h2>Your Completed Jobs</h2>
+         </div>
+      </div>
+      <div class="table_section padding_infor_info">
+         <div class="table-responsive-sm">
+            <table class="table table-dark">
+               <thead>
+                  <tr class="text-warning">
+                     <th>#Job ID</th>
+                     <th class="title">Job Title</th>
+                     <th>Status</th>
+                     <th>You will Earn</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for job in submitted_jobs reversed %}
+
+                  <tr>
+                     <td>{{job.job_id}}</td>
+                     <td class="title">{{job.title}}</td>
+                     <td>{{job.status}}</td>
+                     <td>${{job.job_earning}}</td>
+                  </tr>
+
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock %}

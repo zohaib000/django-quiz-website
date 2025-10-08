@@ -1,0 +1,91 @@
+{% extends 'home/base.html' %} {% block title %}<title>
+    Deposit Money with Payoneer Direct & Indirect Payments</title
+  >{% endblock %} {% block content %} {% load static %}
+  <!-- end topbar -->
+  <!-- dashboard inner -->
+ 
+    
+  <style>
+    .checkout{
+        animation: zoom 2s infinite;
+        margin: 40px;
+    }
+    @keyframes zoom {
+        5% {
+            -webkit-transform: scale(1);
+        }
+        50% {
+            -webkit-transform: scale(1.4);
+        }
+        75% {
+            -webkit-transform: scale(1);
+        }
+        75% {
+            -webkit-transform: scale(1.4);
+        }
+}
+    #checkout:hover{
+        background-color: rgb(0 196 255);
+        border: 1px solid rgb(0 196 255);
+    }
+  </style>
+  
+  <div class="midde_cont">
+    <div class="container-fluid">
+      <div class="row column_title">
+        <div class="col-md-12">
+          <div class="page_title">
+            <h2>Deposit Funds with Payoneer Payments</h2>
+          </div>
+        </div>
+      </div>
+
+      
+      <!-- row -->
+      <div class="row column1">
+        <div class="col-md-12">
+          <div class="white_shd full">
+            <div class="full graph_head heading1 mt-3 ">
+              <marquee behavior="
+              " direction="">
+              <h2 class="text-primary">Complete checkout using Payoneer by clicking on Checkout Button.After that Fill and submit the Below Form to deposit money in to your Account.You can also send Payments from your payoneer Account to our Payoneer Account and then just submit the below form. Our Payoneer Account : wefably@gmail.com</h2>
+            </marquee>
+            <center>
+                <a href="https://link.payoneer.com/Token?t=835CB99AAB6B49788855674DDCB7A881" class="checkout btn btn-lg btn-warning" target="_blank">Deposit $20</a>
+                <a href="https://link.payoneer.com/Token?t=9631DFB383BF4FF99F1A8B38315B5EEF" class="checkout btn btn-lg btn-warning" target="_blank">Deposit $30<a>
+                <a href="https://link.payoneer.com/Token?t=C89B2F1E01664EBE9F995B20DDA9A05C" class="checkout btn btn-lg btn-warning" target="_blank">Deposit $40</a>
+                <a href="https://link.payoneer.com/Token?t=339A3FB128C94C7D8C3D35B57752E2B1" class="checkout btn btn-lg btn-warning" target="_blank">Deposit $50</a>
+                
+            </center>
+            </div>
+           
+            <div class="container mt-5">
+              <form action="" class="py-5" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group mt-5">
+                  <input type="text" class="form-control form-control-lg" placeholder="Enter Transaction ID " name="TID" required >
+                </div>
+                <div class="form-group mt-2">
+                  <br>
+                  <label for="proof" style="font-size: 19px;">Upload Payment Screenshot</label>
+                  <input type="file" id="proof" accept="image/*" class="form-control form-control-lg mt-2" placeholder="Enter Payment Screenshot" name="proof" required>
+                </div>
+                <div class="form-group mt-3">
+                  <br>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+      <!-- end row -->
+    </div>
+  
+  
+    {% endblock %}
+  </div>
+  

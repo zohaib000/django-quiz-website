@@ -1,0 +1,439 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+<title>Advertiser Dashboard</title>
+{% endblock %}
+
+<link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+{% block content %}
+<style>
+
+.btn-stat{
+   background-color: #0088ff;
+   border: 1px #0072ff solid;
+   color: white;
+   font-family: monospace;
+   margin-top:45px;
+}
+.btn-stat:hover{
+   background-color: #f15151;
+   border: 1px #f15151 solid;
+}
+
+.title{
+font-weight:bold;
+font-size: 35px;
+font-family: unset;
+}
+
+h1:nth-child(1){
+    font-family: calibri;
+    color: brown;
+    font-size: 30px;
+}
+
+#caption{
+   font-weight: bold;
+   color: #d56565;
+}
+
+
+.job_range {
+   font-weight: bold;
+   background-color: #fffe04;
+   font-family: calibri;
+   padding: 5px;
+   border-radius: 2%;
+   text-transform: capitalize;
+   font-size: 3vw;
+ }
+
+ .top{
+   background-color: #7a00ff;
+ }
+
+ .footer span {
+   color: #214162;
+ }
+
+ #flag {
+   font-size: 70px;
+ }
+
+ #category {
+   font-size: 30px;
+ }
+
+ .footer {
+   cursor: pointer;
+   background-color: #d1e7dd;
+   border-color: #badbcc;
+   background: #ffffff;
+
+
+ }
+
+
+
+ #conversions {
+   font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+ }
+ .no-data{
+   font-family:calibri;
+   font-size:30px;
+   font-weight: bold;
+
+ }
+
+ #job_bottom {
+   display: flex;
+   justify-content: space-between;
+   font-family: sans-serif;
+   font-size: 25px;
+   font-family: sans-serif;
+   font-weight: bold;
+ }
+
+ #jobs_bottom * {}
+
+
+
+ progress {
+   height: 20px;
+   width: 70%;
+ }
+
+ #title {
+   font-size: 30px;
+ }
+
+
+
+ @media (max-width: 750px) {
+   #price_btn {
+     margin-left: 82%;
+     font-size: 20px;
+   }
+
+ }
+
+ @media screen and (max-width:576px) {
+   #flag {
+     font-size: 80px;
+   }
+
+ }
+
+ @media (max-width: 500px) {
+   #price_btn {
+     margin-left: 75%;
+     font-size: 20px;
+   }
+
+   #title {
+     font-size: 24px;
+   }
+
+   #category {
+     font-size: 24px;
+   }
+
+
+ }
+
+ @media (max-width: 370px) {
+   #price_btn {
+     margin-left: 67%;
+     font-size: 20px;
+   }
+
+   #category {
+     font-size: 20px;
+   }
+ }
+
+ @media (max-width: 298px) {
+   #price_btn {
+     margin-left: 56%;
+     font-size: 20px;
+   }
+ }
+
+ @media (max-width: 238px) {
+   #price_btn {
+     margin-left: 50%;
+     font-size: 20px;
+   }
+ }
+
+ @media (max-width: 216px) {
+   #price_btn {
+     margin-left: 40%;
+     font-size: 20px;
+   }
+ }
+
+
+ .btn-working {
+   color: #fff;
+   background-color: #7a00ff;
+   border-color: #7a00ff;
+   margin-top: 20px;
+ }
+
+ .btn-working:hover {
+   color: #fff;
+   background-color: #0088ff;
+   border-color: #0088ff;
+
+ }
+
+ #price_per {
+   font-size: 30px;
+ }
+
+ @media screen and (min-width:576px) and (max-width:900px) {
+   #price_per {
+     font-size: 4vw;
+   }
+ }
+
+ @media screen and (max-width:576px) {
+   #price_per {
+     font-size: 7vw;
+   }
+
+   .no-data{
+     font-size:23px;
+   }
+ }
+
+ .footer p{
+   font-family:revert;
+   margin: 0;
+   line-height: normal;
+   text-align: center;
+   font-size: 15px;
+   color: #214162;
+   padding: 25px 15px;
+ }
+</style>
+
+<div class="container-fluid mt-3">
+
+    <div class="d-flex">
+      <button class="btn btn-warning" id="switch" style="font-size: 3vw">Your Jobs <i class="fa fa-user text-dark"></i> </button><br><br>
+      <span class="mx-3" ><a style="font-size: 3vw;" href="{% url 'home' %}" class="btn btn-outline-primary ">Switch to Worker</a></span>
+      <span class="mx-3" ><a style="font-size: 3vw;" href="{% url 'premium_account' %}" class="btn btn-outline-primary btn-lg">Deposit Money</a></span>
+   </div>
+
+    <div class="row column1 mt-4">
+        <div class="col-md-6 col-lg-3">
+           <div class="full counter_section margin_bottom_30">
+              <div class="couter_icon">
+                 <div> 
+                    <i class="fa fa-money yellow_color"></i>
+                 </div>
+              </div>
+              <div class="counter_no">
+                 <div>
+                    <p class="total_no">${{balance}}</p>
+                    <p class=    "head_couter" id="caption" id="caption">Balance</p>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+           <div class="full counter_section margin_bottom_30">
+              <div class="couter_icon">
+                 <div> 
+                    <!-- <i class="fa fa-dollar purple_color"></i>
+                     -->
+                     <i class="material-icons" style='color:purple'>paid</i>
+                 </div>
+              </div>
+              <div class="counter_no">
+                 <div>
+                    <p class="total_no">${{spent}}</p>
+                    <p class=  "head_couter" id="caption">Spent on Jobs</p>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+           <div class="full counter_section margin_bottom_30">
+              <div class="couter_icon">
+                 <div> 
+                    <i class="material-icons blue1_color">stars</i>
+                 </div>
+              </div>
+              <div class="counter_no">
+                 <div>
+                    <p class="total_no">100%</p>
+                    <p class=  "head_couter" id="caption">Success Rate</p>
+                 </div>
+              </div>
+           </div>
+        </div>
+       
+        <div class="col-md-6 col-lg-3">
+           <div class="full counter_section margin_bottom_30">
+              <div class="couter_icon">
+                 <div> 
+                    <i class="material-icons" style="color:#960000 ;">schedule</i>
+                 </div>
+              </div>
+              <div class="counter_no">
+                 <div>
+                    <p class="total_no">100%</p>
+                    <p class=  "head_couter" id="caption">On time</p>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+           <div class="full counter_section margin_bottom_30">
+              <div class="couter_icon">
+                 <div> 
+                    <!-- <i class="fa fa-briefcase red_color"></i> 
+                    -->
+                    <i class="material-icons" style='color:#39383a;'>work_history</i>
+                 </div>
+              </div>
+              <div class="counter_no">
+                 <div>
+                    <p class="total_no">{{total_jobs|default:'0'}}</p>
+                    <p class=  "head_couter" id="caption">Jobs Posted</p>
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+           <div class="full counter_section margin_bottom_30">
+              <div class="couter_icon">
+                 <div> 
+                    <!-- <i class="fa fa-check-circle green_color"></i> -->
+                    <i class="material-icons" style='color:#38c738;  '>check_circle</i>
+                 </div>
+              </div>
+              <div class="counter_no">
+                 <div>
+                    <p class="total_no">{{completed_jobs|default:'0'}}</p>
+                    <p class=  "head_couter" id="caption">jobs completed</p>
+
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+           <div class="full counter_section margin_bottom_30">
+              <div class="couter_icon">
+                 <div> 
+                    <!-- <i class="fa fa-ban red_color"></i> -->
+                    <i class="material-icons" style='color:#f15151;'>pending</i>
+                 </div>
+              </div>
+              <div class="counter_no">
+                 <div>
+                    <p class="total_no">{{progress_jobs|default:'0'}}</p>
+                    <p class=  "head_couter" id="caption">in Progress</p>
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+           <div class="full counter_section margin_bottom_30">
+              <div class="couter_icon">
+                 <div> 
+                    <!-- <i class="fa fa-clock-o blue1_color"></i> -->
+                    <i class="material-icons" style='color:darkcyan;  '>group_add</i>
+                 </div>
+              </div>
+              <div class="counter_no">
+                 <div>
+                    <p class="total_no">{{your_workers}}</p>
+                    <p class=  "head_couter" id="caption">Your Workers</p>
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        <h1 class="text-center text-bold title text-dark mt-3">Your Jobs stats</h1>
+
+        {% if all_jobs %}
+        <div class="container-fluid jobs_data" style="float: left;">
+         {% for job in all_jobs %}
+         <a href="{% url 'show_proofs' job.job_id %}" style="display: block;">
+           <div class="footer job">
+             <button class="btn w-100 d-inline-block" id="category" style="vertical-align: bottom;
+               font-family:system-ui;
+               color: #ffffff;
+               background-color: #0072ff;
+           "> {{job.category}}</button> 
+       
+    
+             
+       
+             <div class="row " id="price">
+               <div class="col-12 col-sm-6 col-md-7 col-lg-8">
+                 <p id="title" style="text-align:left;font-family: Candara;font-weight: bold;color: #230048" class="p-3">
+                   {{job.job_title}}
+                 </p>
+               </div>
+       
+               <div class="col col-md px-5">
+                 <div class="row">
+                   <div id="USD" class="col-6 col-sm col-md">
+                     <span class="text-xl fw-bold d-inline-block text-center mt-3" id="price_per">${{job.job_price_per}}</span>
+                   </div>
+                   <div class="col-6 col-sm col-md mt-3">
+                     <span class="flag-icon flag-icon-{{job.posted_from}}" id="flag"></span>
+                   </div>
+                 </div>
+               </div>
+             </div>
+       
+             <p><progress id="file" value="{{job.done_conversions}}" max="{{job.total_conversions}}"> {{job.done_conversions}}%
+               </progress><strong class="fw-medium" style="color: black;" id="conversions">&nbsp; {{job.done_conversions}} /
+                 {{job.total_conversions}} Done</strong> </p>
+       
+                 <div id="job_bottom" class="row">
+                  <div class="col-6 col-sm-3">
+                    <p>Published by {{job.user_posted}}</p>
+                  </div>
+                  <div class="col-6 col-sm-3">
+                    <p>{{job.total_conversions}} workers needed</p>
+                  </div>
+                  <div class="col-6 col-sm-3">
+                    <p>{{job.sub_category}} </p>
+                  </div>
+                  <div class="col-6 col-sm-3">
+                    <p id="date">{{job.date_time_when_posted}}</p>
+                  </div>
+                </div>
+             <center><a href="{% url 'show_proofs' job.job_id %}" class="btn btn-stat btn-lg" style="font-family:monospace;">Statistics</a></center>
+             </p>
+           </div>
+         </a>
+       
+         {% endfor %}
+       </div>
+
+       {% else %}
+
+       <h5 class="text-danger text-center mt-3">No Data Available</h5>
+      {% endif %}
+     </div>
+</div>
+
+<script>
+   new WOW().init();      
+</script>
+{% endblock %}

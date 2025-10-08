@@ -1,0 +1,35 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+<title>Your Job is Published.</title>
+{% endblock %}
+
+{% block content %}
+
+<style>
+  .container{
+    margin-top: 40px;
+    padding: 20px;
+  }
+
+  h1{
+    font-family: calibri;
+    font-size:25px;
+  }
+</style>
+<div class="container">
+<center><h1>Congratulations ! Your job is Published successfully!</h1></center>
+<center class="mt-2"><p>You can see your Jobs Progress in your Advertiser Dashboard!</p></center>
+<center>  <br><h3><a href="{% url 'advertiser_dashboard' %}" class="btn btn-outline-primary" >Go to Dashboard</a></h3>
+</center>
+ <br><br>
+ <center id="img"><img src="{% static 'a.gif' %}" id="image" style="height: 200px;width: 200px;" alt=""></center>
+</div>
+ <script>
+    window.onload=function(){
+        setTimeout(function(){
+        document.getElementById('image').src="{% static 'stop.png' %}";
+}, 4500);
+    }
+ </script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>Opening Fably Ads</title>{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+  
+    @media screen and (max-width: 550px){
+        #main-text{
+            font-size: 20px;
+        }
+}
+</style>
+<h2 class="text-center mt-5" id="main-text">We are opening Ads ..... please wait!</h2>
+<center><img src="{% static 'loader.gif' %}" style="margin-top:15px;" alt=""></center>
+<a href="{{link}}" id="link"></a>
+
+<script>
+    window.onload=function(){
+    document.getElementById('link').click();
+    }
+</script>
+{% endblock %}
+

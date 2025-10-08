@@ -1,0 +1,135 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>Earn money by selling photos that you capture</title>{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+    label{
+  padding-left:4px ;
+  }
+  #form-btn{
+       font-size: 25px;
+    }
+ @media screen and (max-width:425px) {
+    #form-btn{
+       font-size: 18px;
+    }
+ }
+ @media screen and (max-width:323px) {
+    #form-btn{
+       font-size: 16px;
+    }
+ }
+ @media screen and (max-width:293px) {
+    #form-btn{
+       font-size: 14px;
+    }
+ }
+</style>
+
+<body class="inner_page media_gallery mt-0">
+   {% if images %}
+   <div class="full_container mt-0" >
+      <div class="inner_container">
+         <div id="content" class="mt-0">
+
+            <div class="midde_cont">
+               <div class="container-fluid">
+                  <div class="row column_title">
+                     <div class="col-md-12">
+                        <div class="page_title">
+                           <h2>Gallery Data Analysis</h2>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row column4 graph">
+                     <!-- Gallery section -->
+                     <div class="col-md-12">
+                        <div class="white_shd full margin_bottom_30">
+                           <div class="full graph_head">
+                              <div class="heading1 margin_0">
+                                 <h2>Images From You!</h2>
+                              </div>
+                           </div>
+                           <div class="full gallery_section_inner padding_infor_info">
+                             <div class="row">
+                                {% for i in images %}
+                              <div class="col-sm-4 col-md-3 margin_bottom_30">
+                                 <div class="column">
+                                  <a data-fancybox="gallery" href="{{i.image.url}}"><img class="img-responsive" src="{{i.image.url}}" /></a>
+                                 </div>
+                                 <div class="heading_section">
+                                    <h4>${{i.price}} <button class="btn btn-success text-dark">{{i.sells}} sells</button></h4>
+                                 </div>
+                              </div>
+                              {% endfor %}
+                             </div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                  </div>
+                  
+               </div>
+          
+            </div>
+         </div>
+       
+         
+         <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                     <h4 class="modal-title">Modal Heading</h4>
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                     Modal body..
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         
+         <!-- end model popup -->
+      </div>
+   </div>
+   {% endif %}
+   <div class="card" class='mt-0' id="ca">
+   <button class='btn btn-warning' id="form-btn" style="color: brown;font-family: 'Times New Roman', Times, serif;">Upload your Photography</button>
+  <br> <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Price</label>
+          <input type="number" name='price' class="form-control" required id="inputEmail4" placeholder="Enter amount in $">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">Password</label>
+          <input type="file" accept="image/*" name='image' required class="form-control" id="inputPassword4">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputAddress">Description</label>
+        <input type="text" class="form-control" name='title' required id="inputAddress" placeholder="This image is about nature to get attraction..">
+      </div>
+    
+      <button type="submit" class="btn btn-primary">Sell Now</button>
+    </form>
+   </div>
+<a href="#ca" id="link">.</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+   window.onload=function(){
+document.getElementById('link').click();
+   }
+ 
+</script>
+
+</body>
+{% endblock %}
+
+

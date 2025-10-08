@@ -1,0 +1,518 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>Complete Fableey Jobs and Earn money!</title>{% endblock %}
+{% block content %}
+{% load static %}
+<header>
+  <meta property="og:image" content="{% static 'profile.png' %}" />
+</header>
+<style>
+  .apply:hover {
+    background-color: #009dff;
+    color: white;
+    border: 1px #009dff solid;
+  }
+
+  .job_range {
+    font-weight: bold;
+    background-color: #fffe04;
+    font-family: calibri;
+    padding: 5px;
+    border-radius: 2%;
+    text-transform: capitalize;
+    font-size: 3vw;
+  }
+
+  .top {
+    background-color: #7a00ff;
+  }
+
+  .footer span {
+    color: #214162;
+  }
+
+  #flag {
+    font-size: 70px;
+  }
+
+  #category {
+    font-size: 30px;
+  }
+
+  .footer {
+    cursor: pointer;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+    background: #ffffff;
+
+
+  }
+
+
+
+  #conversions {
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  }
+
+  .no-data {
+    font-family: calibri;
+    font-size: 30px;
+    font-weight: bold;
+
+  }
+
+  #job_bottom {
+    display: flex;
+    justify-content: space-between;
+    font-family: sans-serif;
+    font-size: 25px;
+    font-family: sans-serif;
+    font-weight: bold;
+  }
+
+  #jobs_bottom * {}
+
+
+
+  progress {
+    height: 20px;
+    width: 70%;
+  }
+
+  #title {
+    font-size: 30px;
+  }
+
+
+
+  @media (max-width: 750px) {
+    #price_btn {
+      margin-left: 82%;
+      font-size: 20px;
+    }
+
+  }
+
+  @media screen and (max-width:576px) {
+    #flag {
+      font-size: 80px;
+    }
+
+  }
+
+  @media (max-width: 500px) {
+    #price_btn {
+      margin-left: 75%;
+      font-size: 20px;
+    }
+
+    #title {
+      font-size: 24px;
+    }
+
+    #category {
+      font-size: 24px;
+    }
+
+
+  }
+
+  @media (max-width: 370px) {
+    #price_btn {
+      margin-left: 67%;
+      font-size: 20px;
+    }
+
+    #category {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 298px) {
+    #price_btn {
+      margin-left: 56%;
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 238px) {
+    #price_btn {
+      margin-left: 50%;
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 216px) {
+    #price_btn {
+      margin-left: 40%;
+      font-size: 20px;
+    }
+  }
+
+
+  .btn-working {
+    color: #fff;
+    background-color: #7a00ff;
+    border-color: #7a00ff;
+    margin-top: 20px;
+    font-family: monospace;
+  }
+
+  .btn-working:hover {
+    color: #fff;
+    background-color: #0088ff;
+    border-color: #0088ff;
+
+  }
+
+  #price_per {
+    font-size: 30px;
+  }
+
+  @media screen and (min-width:576px) and (max-width:900px) {
+    #price_per {
+      font-size: 4vw;
+    }
+  }
+
+  @media screen and (max-width:576px) {
+    #price_per {
+      font-size: 7vw;
+    }
+
+    .no-data {
+      font-size: 23px;
+    }
+  }
+
+
+  #post:hover {
+    background-color: #ffcd04;
+    border: 1px solid #ffcd04;
+    transform: scale3d(1.1, 1.1, 1);
+  }
+
+  .footer p {
+    font-family: revert;
+    margin: 0;
+    line-height: normal;
+    text-align: center;
+    font-size: 15px;
+    color: #214162;
+    padding: 25px 15px;
+  }
+</style>
+
+<div class="container-fluid">
+  <label for="" style="text-align:left;font-family: Calibri;font-weight: bold;font-size:30px;color:black;">Filter
+    Jobs</label>
+  <div class="row mt-1">
+    <div class="form-group col-sm-3 col-6">
+      <input type="text" placeholder="Job Title" class="form-control" name="title">
+    </div>
+
+    <div class="form-group col-sm-3 col-6">
+      <input type="number" placeholder="Job Price" class="form-control" name="price">
+    </div>
+
+    <div class="form-group col-sm-3 col-6">
+      <input type="date" placeholder="published" class="form-control mt-2 mt-sm-0" name="date">
+    </div>
+
+    <div class="form-group col-sm-3 col-6 mt-2 mt-sm-0">
+      <select name="type" id="type" class="form-select">
+        <option value="All" selected>International</option>
+        <option value="selective">Selective</option>
+        <option value="">Both</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="form-group col-sm-3 col-6">
+      <select name="cat" id="cat" class="form-select">
+        <option value="">Category</option>
+        {% for i in cat %}
+        <option value="{{i}}">{{i}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group col-sm-3 col-6">
+      <select name="subcat" id="subcat" class="form-select">
+        <option value="">Subcategory</option>
+        {% for i in subcat %}
+        <option value="{{i.name}}">{{i.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group col-sm-3 col-6 mt-2 mt-sm-0">
+      <input type="text" placeholder="Published by user" class="form-control" name="user">
+    </div>
+
+    <div class="form-group col-sm-3 col-6 mt-2 mt-sm-0">
+      <select name="posted_from" class="fields form-select" id="country">
+        <option value="">Posted from</option>
+        <option value="al">Albania</option>
+        <option value="at">Austria</option>
+        <option value="af">Afghanistan</option>
+        <option value="am">Armenia</option>
+        <option value="ar">Argentina</option>
+        <option value="dz">Algeria</option>
+        <option value="az">Azerbaijan</option>
+        <option value="bh">Bahrain</option>
+        <option value="be">Belgium</option>
+        <option value="bz">Belize</option>
+        <option value="bj">Benin</option>
+        <option value="bm">Bermuda</option>
+        <option value="bt">Bhutan</option>
+        <option value="bo">Bolivia</option>
+        <option value="br">Brazil</option>
+        <option value="co">Colombia</option>
+        <option value="cz">Czechia</option>
+        <option value="dk">Denmark</option>
+        <option value="eg">Egypt</option>
+        <option value="fi">Finland</option>
+        <option value="ge">Georgia</option>
+        <option value="de">Germany</option>
+        <option value="hk">Hong Kong</option>
+        <option value="hu">Hungry</option>
+        <option value="is">Iceland</option>
+        <option value="id">Indonesia</option>
+        <option value="ir">Iran</option>
+        <option value="iq">Iraq</option>
+        <option value="it">Italy</option>
+        <option value="ke">Kenya</option>
+        <option value="mx">Mexico</option>
+        <option value="ma">Morocco</option>
+        <option value="pa">Panama</option>
+        <option value="pl">Poland</option>
+        <option value="pt">Portugal</option>
+        <option value="qa">Qatar</option>
+        <option value="ro">Romania</option>
+        <option value="ru">Russia</option>
+        <option value="sg">Singapore</option>
+        <option value="za">South Africa</option>
+        <option value="se">Sweden</option>
+        <option value="tr">Turkey</option>
+        <option value="pk">Pakistan</option>
+        <option value="in">India</option>
+        <option value="us">United states</option>
+        <option value="gb">United Kingdom</option>
+        <option value="au">Austrailia</option>
+        <option value="nz">New zealand</option>
+        <option value="cn">China</option>
+        <option value="es">Spain</option>
+        <option value="sa">Saudi Arabia</option>
+        <option value="kr">Korea</option>
+        <option value="jp">Japan</option>
+        <option value="lk">Sri Lanka</option>
+        <option value="np">Nepal</option>
+        <option value="ca">Canada</option>
+        <option value="my">Malaysia</option>
+        <option value="bd">Bangladesh</option>
+        <option value="il">Israel</option>
+        <option value="fr">France</option>
+        <option value="ae">United Arab Emirates</option>
+        <option value="en">England</option>
+        <option value="ie">Ireland</option>
+      </select>
+      <br />
+
+    </div>
+
+  </div>
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-warning apply" style="margin-right: 0%;">Submit</button>
+  </div>
+</div>
+
+<div class="container-fluid mt-3">
+  <a href="{% url 'post_job' %}" style="font-size:25px;" class="btn btn-info w-20" id="post">Post Your Job</a>
+</div>
+
+<div class="container-fluid jobs_data" style="float: left;">
+  {% for job in jobs %}
+  <a href="{% url 'job_details' job.id %}" style="display: block;">
+    <div class="footer job">
+
+      <button class="btn w-100 d-inline-block" id="category" style="vertical-align: bottom;
+        font-family:system-ui;
+        color: #ffffff;
+        background-color: #7a00ff;
+    "> {{job.category}}</button>
+
+      {% if job.allowed_countries == "All" %}<img src="{% static 'International2.png' %}" alt="">
+      {% else %}<img src="{% static 'Selective.png' %}" alt="">{% endif %}
+
+
+      <div class="row " id="price">
+        <div class="col-12 col-sm-6 col-md-7 col-lg-8">
+          <p id="title" style="text-align:left;font-family: Candara;font-weight: bold;color: #230048" class="p-3">
+            {{job.job_title}}
+          </p>
+        </div>
+
+        <div class="col col-md px-5">
+          <div class="row">
+            <div id="USD" class="col-6 col-sm col-md">
+              <span class="text-xl fw-bold d-inline-block text-center mt-3" id="price_per">${{job.job_price_per}}</span>
+            </div>
+            <div class="col-6 col-sm col-md mt-3">
+              <span class="flag-icon flag-icon-{{job.posted_from}}" id="flag"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p><progress id="file" value="{{job.done_conversions}}" max="{{job.total_conversions}}"> {{job.done_conversions}}%
+        </progress><strong class="fw-medium" style="color: black;" id="conversions">&nbsp; {{job.done_conversions}} /
+          {{job.total_conversions}} Done</strong> </p>
+
+      <div id="job_bottom" class="row">
+        <div class="col-6 col-sm-3">
+          <p>Published by {{job.user_posted}}</p>
+        </div>
+        <div class="col-6 col-sm-3">
+          <p>{{job.total_conversions}} workers needed</p>
+        </div>
+        <div class="col-6 col-sm-3">
+          <p>{{job.sub_category}} </p>
+        </div>
+        <div class="col-6 col-sm-3">
+          <p id="date">{{job.date_time_when_posted}}</p>
+        </div>
+      </div>
+      <center><a href="{% url 'job_details' job.id %}" class="btn btn-working btn-lg">Start Working</a></center>
+      </p>
+    </div>
+  </a>
+
+  {% endfor %}
+</div>
+
+<script>
+  $(".job").click(function () {
+    window.location = $(this).find("a").attr("href");
+  });
+
+
+  $('#cat').change(function () {
+    var cat = $(this).val();
+    data = {
+      cat: cat
+    }
+
+    $.ajax({
+      type: "GET",
+      url: '{% url "show_dependant" %}',
+      data: data,
+      success: function (response) {
+        list = response.output;
+        options = '<option value="">Subcategory</option>'
+        for (var i = 0; i < list.length; i++) {
+          options += `<option value="${list[i]}">${list[i]}</option>`
+        }
+        $('#subcat').html(options);
+      },
+      error: function (err) {
+
+      }
+    })
+  })
+
+
+
+  // fetching data on apply filter
+  $('.apply').click(function () {
+    //getting filter data
+    title = $('input[name=title]').val();
+    price = $('input[name=price]').val();
+    date = $('input[name=date]').val();
+    type = $('#type').val();
+    cat = $('select[name=cat]').val();
+    subcat = $('select[name=subcat]').val();
+    user = $('input[name=user]').val();
+    posted_from = $('select[name=posted_from]').val();
+    data = { 'title': title, 'price': price, 'date': date, 'type': type, 'cat': cat, 'subcat': subcat, 'user': user, 'posted_from': posted_from }
+
+    $.ajax({
+      type: 'GET',
+      url: '{% url "filter_jobs" %}',
+      data: data,
+      success: function (resp) {
+        jobs = resp.jobs;
+        content = ''
+        if (jobs.length == 0) {
+          content = `
+          <h1 class="text-center text-danger no-data" >There is no job according to your Filter.</h1>
+          <center><a href="" class="btn btn-success btn-lg mt-3">View All</a></center>
+        
+        `
+        } else {
+          content = ` <h1 class="text-center text-success no-data" >${jobs.length} jobs Found</h1>`
+        }
+        for (var i = 0; i < jobs.length; i++) {
+          var url_mask = "{% url 'job_details' 12345 %}".replace('12345', jobs[i].id);
+          var img = ''
+          jobs[i].allowed_countries == 'All' ? img = 'International2.png' : img = 'Selective.png';
+          content += `
+          <a href="${url_mask}" style="display: block;">
+            <div class="footer job">
+              <button class="btn w-100 d-inline-block" id="category" style="vertical-align: bottom;
+                font-fanmily:system-ui;
+                color: #ffffff;
+                background-color: #7a00ff;
+            "> ${jobs[i].category}</button> 
+        
+        
+
+              <img src="{% static '${img}' %}" alt=""/> 
+        
+              <div class="row " id="price">
+                <div class="col-12 col-sm-6 col-md-7 col-lg-8">
+                  <p id="title" style="text-align:left;font-family: Candara;font-weight: bold;color: #230048" class="p-3">
+                  ${jobs[i].job_title}
+                  </p>
+                </div>
+        
+                <div class="col col-md px-5">
+                  <div class="row">
+                    <div id="USD" class="col-6 col-sm col-md">
+                      <span class="text-xl fw-bold d-inline-block text-center mt-3" id="price_per">$${jobs[i].job_price_per}</span>
+                    </div>
+                    <div class="col-6 col-sm col-md mt-3">
+                      <span class="flag-icon flag-icon-${jobs[i].posted_from}" id="flag"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <p><progress id="file" value="${jobs[i].done_conversions}" max="${jobs[i].total_conversions}"> ${jobs[i].done_conversions}%
+                </progress><strong class="fw-medium" style="color: black;" id="conversions">&nbsp; ${jobs[i].done_conversions} /
+                  ${jobs[i].total_conversions} Done</strong> </p>
+        
+              <div id="job_bottom">
+                <p>Published by ${jobs[i].user_posted}</p>
+                <p>${jobs[i].total_conversions} workers needed</p>
+                <p>${jobs[i].sub_category} </p>
+                <p id="date">Posted on ${jobs[i].date_time_when_posted}</p>
+              </div>
+              <center><a href="${url_mask}" class="btn btn-working btn-lg">Start Working</a></center>
+              </p>
+            </div>
+          </a>`
+        }
+        $('.jobs_data').html(content);
+      },
+
+      error: function (err) {
+
+      }
+    })
+  })
+</script>
+
+
+{% endblock %}

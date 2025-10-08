@@ -1,0 +1,203 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>Earn money by selling Logo Art </title>{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+  label{
+  padding-left:4px ;
+  }
+   #image{
+      height: 150px;
+      width:100%;
+   }
+   #form-btn{
+       font-size: 25px;
+    }
+    
+ @media screen and (max-width:425px) {
+    #form-btn{
+       font-size: 18px;
+    }
+    
+ }
+ @media screen and (max-width:323px) {
+    #form-btn{
+       font-size: 16px;
+    }
+ }
+ @media screen and (max-width:293px) {
+    #form-btn{
+       font-size: 14px;
+    }
+ }
+
+ @media screen and (min-width:576px) and (max-width:605px) {
+      #image{
+         width: 100%;
+      }
+   }
+
+
+ @media screen and (min-width:551px) and (max-width:575px) {
+      #image{
+         height:330px;
+      }
+   }
+
+
+
+ @media screen and (min-width:501px) and (max-width:550px) {
+      #image{
+         height:300px;
+      }
+   }
+
+
+ @media screen and (min-width:451px) and (max-width:500px) {
+      #image{
+         height:270px;
+      }
+   }
+
+ @media screen and (min-width:385px) and (max-width:450px) {
+      #image{
+         height:240px;
+      }
+   }
+
+ @media screen and (min-width:350px) and (max-width:385px) {
+      #image{
+         height: 180px;
+      }
+   }
+
+</style>
+
+<body class="inner_page media_gallery mt-0">
+   {% if images %}
+   <div class="full_container mt-0" >
+      <div class="inner_container">
+         <div id="content" class="mt-0">
+
+            <div class="midde_cont">
+               <div class="container-fluid">
+                  <div class="row column_title">
+                     <div class="col-md-12">
+                        <div class="page_title">
+                           <h2>Logo Art Data Analysis</h2>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row column4 graph">
+                     <!-- Gallery section -->
+                     <div class="col-md-12">
+                        <div class="white_shd full margin_bottom_30">
+                           <div class="full graph_head">
+                              <div class="heading1 margin_0">
+                                 <h2>Logo Art From You!</h2>
+                              </div>
+                           </div>
+                           <div class="full gallery_section_inner padding_infor_info">
+                             <div class="row">
+                                {% for i in images %}
+                              <div class="col-sm-4 col-md-3 margin_bottom_30">
+                                 <div class="column">
+                                  <a data-fancybox="gallery"  href="{{i.image.url}}"><img id="image" class="image-responsive" src="{{i.image.url}}" style="" /></a>
+                                 </div>
+                                 <div class="heading_section">
+                                    <h4>${{i.price}} <button class="btn btn-success text-dark">{{i.sells}} sells</button></h4>
+                                 </div>
+                              </div>
+                              {% endfor %}
+                             </div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                  </div>
+                  
+               </div>
+          
+            </div>
+         </div>
+       
+         
+         <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                     <h4 class="modal-title">Modal Heading</h4>
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                     Modal body..
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         
+         <!-- end model popup -->
+      </div>
+   </div>
+   {% endif %}
+   {% if messages %}
+   {% for i in messages %}
+   {% if i.tags == "error" %}
+   <div class="alert alert-danger" role="alert">
+      {{i}}
+    </div>
+   {% else %}
+   <div class="alert alert-{{ i.tags }}" role="alert">
+     {{i}}
+   </div>
+   {% endif %}
+   {% endfor %}
+   {% endif %}
+   <div class="card" class='mt-0' id="ca">
+   <button id="form-btn" class='btn btn-warning' style="color: brown;font-family: 'Times New Roman', Times, serif;">Upload Professional Logo<span style="color: black;">(500x500)</span></button>
+  <br> <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Price</label>
+          <input type="number" name='price' class="form-control" required id="inputEmail4" placeholder="Enter amount in $">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">Cover image</label>
+          <input type="file" accept="image/*" name='image' required class="form-control" id="inputPassword4">
+        </div>
+        <div class="form-group col-md-6">
+         <label for="inputEmail4">Template Type</label>
+         <input type="text" name='template_type' class="form-control" required id="inputEmail4" placeholder="Enter template type.e.g PSD">
+       </div>
+        <div class="form-group col-md-6">
+         <label for="inputPassword4">Editable Template</label>
+         <input type="file" accept="" name='template' required class="form-control" id="inputPassword4">
+       </div>
+      </div>
+      <div class="form-group">
+        <label for="inputAddress">Description</label>
+        <input type="text" class="form-control" name='title' required id="inputAddress" placeholder="This logo is made for Selling Company...">
+      </div>
+    
+      <button type="submit" class="btn btn-primary">Sell Now</button>
+    </form>
+   </div>
+<a href="#ca" id="link">.</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+   window.onload=function(){
+document.getElementById('link').click();
+   }
+ 
+</script>
+
+</body>
+{% endblock %}
+
+

@@ -1,0 +1,181 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>You are Going to Buy a branded Account to Earn more Money!</title>{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+   @media screen and (max-width:473px) {
+    #header{
+        font-size: 22px;
+        line-height: 1.3;
+    }
+   }
+   @media screen and (max-width:883px) {
+    label{
+        display: none;
+    }
+    input['email']{
+        width: 100%;
+    }
+   }
+   
+    label{
+        font-size: 25px;
+        color: crimson;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+</style>
+<br><br>
+<center><p style="font-weight: bold;font-size: 35px;" id='header' >Select Payment method</p></center>
+
+<br>
+<center><select name="payment_method" id="method" style="font-size: 30px;" >
+    <option value="Payoneer">Payoneer</option>
+    <option value="Jazzcash">Jazzcash</option>
+    <option value="Easypaisa">Easypaisa</option>
+</select><br><br><br><button class="btn btn-primary" onclick="sel()">Continue</button></center>
+<br>
+<!-- payoneer -->
+<center>
+    <div class="card" style="display: none;" id="card1">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            <!-- Email input -->
+            <button class="btn btn-warning" style="font-weight: bold;">Amount to Pay :{{amount}}</button>
+            <br><br>
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form1Example1" >Payoneer Account</label>
+              <input type="email" required id="form1Example1" placeholder="Enter your payoneer Email" name='account' class="form-control" />
+             
+            </div>
+          
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <label class="form-label"  for="form1Example2" >Payment Proof</label>
+              <input type="file" required id="form1Example2" name='proof' class="form-control" />
+              
+            </div>
+          
+            <!-- 2 column grid layout for inline styling -->
+            <div class="row mb-4">
+              <div class="col d-flex justify-content-center">
+                <!-- Checkbox -->
+              
+              </div>
+          
+              
+            </div>
+          
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block">Buy Now</button>
+          </form>
+        </div>
+   
+    
+</center>
+<!-- jazzcash -->
+<br>
+<center>
+    <div class="card" style="display: none;" id="card2">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <!-- Email input -->
+                <button class="btn btn-warning" style="font-weight: bold;">Amount to Pay :{{pkr}}pkr</button>
+                <br><br>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form1Example1" >Jazzcash Account</label>
+                  <input type="text" required id="form1Example1" placeholder="Enter your jazzcash Account Number." name='account' class="form-control" />
+                 
+                </div>
+              
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label"  for="form1Example2" >Payment Proof</label>
+                  <input type="file" required id="form1Example2" name='proof' class="form-control" />
+                  
+                </div>
+              
+                <!-- 2 column grid layout for inline styling -->
+                <div class="row mb-4">
+                  <div class="col d-flex justify-content-center">
+                    <!-- Checkbox -->
+                  
+                  </div>
+              
+                  
+                </div>
+              
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block">Buy Now</button>
+              </form>
+    </div>
+    
+</center>
+
+<!--Easypaisa -->
+<br>
+<center>
+    <div class="card" style="display: none;" id="card3">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <!-- Email input -->
+                <button class="btn btn-warning" style="font-weight: bold;">Amount to Pay :{{pkr}}pkr</button>
+                <br><br>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form1Example1" >Easypaisa Account</label>
+                  <input type="text" required id="form1Example1" placeholder="Enter your Easypaisa Account Number." name='account' class="form-control" />
+                 
+                </div>
+              
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label"  for="form1Example2" >Payment Proof</label>
+                  <input type="file" required id="form1Example2" name='proof' class="form-control" />
+                  
+                </div>
+              
+                <!-- 2 column grid layout for inline styling -->
+                <div class="row mb-4">
+                  <div class="col d-flex justify-content-center">
+                    <!-- Checkbox -->
+                  
+                  </div>
+              
+                  
+                </div>
+              
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block">Buy Now</button>
+              </form>
+    </div>
+    
+</center>
+<script>
+    function sel(){
+        val=document.getElementById('method').value;
+        if(val=='Jazzcash'){
+        document.getElementById('card2').style.display='block';
+        document.getElementById('card1').style.display='none';
+        document.getElementById('card3').style.display='none';
+        }
+        if(val=='Payoneer'){
+        document.getElementById('card1').style.display='block';
+        document.getElementById('card2').style.display='none';
+        document.getElementById('card3').style.display='none';
+        }
+        if(val=='Easypaisa'){
+        document.getElementById('card3').style.display='block';
+        document.getElementById('card2').style.display='none';
+        document.getElementById('card1').style.display='none';
+        }
+        var my_var = '{{ content|escapejs }}';
+        alert(my_var);
+    }
+
+    window.onload=function(){
+        var my_var = '{{ content|escapejs }}';
+        alert(my_var);
+
+    }
+</script>
+{% endblock %}

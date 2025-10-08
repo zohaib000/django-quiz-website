@@ -1,0 +1,76 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZ58NTVPTY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-ZZ58NTVPTY');
+  </script>
+  {% block title %}{% endblock %}
+  <!-- Required meta tags -->
+  <meta property="og:image" content="{% static 'prev.png' %}" />
+  <meta charset="utf-8">
+  <meta name="google-site-verification" content="r-xNb74gHuMMRYmOjntSRYS3F67gGazqYlNkvLFAm_s" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description"
+    content="Fableey jobs provide you facility to promote your Social Media Account,Websites,Applications,CPA Offers,Business Leads and affliate Links.You can increase views & impressions of site/application ads and in this way you can earn more money as advertiser on Fableey.If you want to join as Fableey worker , then you will be able to complete jobs published by advertiser.Our Referal program is providing $0.005 for each Referal signup.So what wait for ? Join Fableey Now and Become Millionare in just one week.">
+  <meta name="keywords"
+    content="Fableey jobs,Fableey micro jobs,Fableey earn money,earn money online,Earn money,complete jobs earn money , earn money on Fableey , Fableey.com,Fableey advertisement,Fableey run jobs,Fableey youtube channel promotion ,Fableey picoworkers alternative,picoworkers,microworkers,microjobs,picoworkers earn money , micro jobs earn money ,earn money by completing survey,website signup earn money,earn money by subscribing youtube channel, make money online,picoworkers make money online,Fableey signup,Fableey login,Fableey dashboard,Fableey advertiser dashboard,Fableey referal program,Fableey make money,Fableey complete jobs,Fableey international jobs,Fableey follow page earn money,Follow facebook page earn money,follow instagram user earn money,small jobs earn money,small jobs earn money online,complete microjobs,Fableey microjobs,website registration earn money,Fableey picoworkers alternative,picoworker best alternative,Fableey small jobs,Fableey microjobs,microworker best alternative,picoworker best alternative to make money online,make money online very easily,Fableey bonuses and rewards , get Fableey bonus ,apply for Fableey bonuses,Fableey customer support,Fableey online earning,online earning using Fableey jobs,complete Fableey jobs make money,">
+  <link href="{% static 'share.png' %}" rel="icon">
+  <link href="{% static 'share.png' %}" rel="apple-touch-icon">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'signup' %}">Create A Free Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user_login' %}">Login Now</a>
+        </li>
+
+      </ul>
+      <span class="navbar-text text-warning">
+        Upload Your MCQS like A Pro
+      </span>
+    </div>
+  </nav>
+
+  {% block content %}
+  {% endblock %}
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

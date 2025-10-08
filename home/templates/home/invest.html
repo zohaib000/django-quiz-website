@@ -1,0 +1,162 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>Invest your income to Earn more on Fableey</title> {% endblock %}
+{% block content %}
+{% load static %}
+
+<!-- Bootstrap core CSS -->
+
+<link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/album/">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+  <style>
+  
+/*  */
+@media screen and (max-width:324px){
+      table{
+font-size: 12px;
+      }
+   }
+#box{
+      display: inline-flex;
+    }
+    #image{
+      width: 100%;
+      height: 250px;
+    }
+      @media screen and (max-width:422px) {
+        #main-text{
+            font-size:20px ;
+            background-color:transparent;
+        }
+      }
+    #main-text{
+
+        
+    }
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    @media screen and (min-width:770px) and (max-width:992px) {
+      .card-block .card-title{
+        font-size: 18px;
+      }
+      #hand{
+        display:none;
+      }
+      .text-muted{
+        display: none;
+      }
+    }
+    @media screen and (min-width:575px) and (max-width:770px) {
+      .card-block .card-title{
+        font-size: 15px;
+      }
+      #hand{
+        display:none;
+      }
+      .text-muted{
+        display: none;
+      }
+    }
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+    @media (max-width: 578px) {
+      .bd-placeholder-img-lg {
+        font-size: 20px;
+      }
+    }
+ 
+  </style>
+
+
+</head>
+
+<body>
+ 
+
+  
+
+
+          <h1 id="main-text" class="font-weight-bold font-weight-bold p-3 wow fadeInRight animate__delay-0s animate__faster">Why Fableey Investing Program as Passive income creator?</h1>
+          <p class="lead p-3  text-left text-blackmh-900" style="color: black;">There are numerious reasons for you to choose <b class="text-success text-bold">Fableey investing program</b> as your passive income Generator.The first main reason comes because of accepting Fableey as Highly trusted platform.Second reason for selecting Fableey is Guidance of active support team and High Profit rate for yearly as well as monthly plans.</p>
+          <p class="lead p-3  text-left text-blackmh-100" style="color: black;">There are many programs of Fableey investment that can utilize your income for a little duration and in return you will get a high revenue as your Fableey investment profit.What wait for? <br> if you want to ask any Questions related to Fableey investment programs ,Feel free to contact us.</p>
+
+          <p>
+            <a href="#below" class="btn btn-primary my-2">Invest now</a>
+            <a href="{% url 'help' %}" class="btn btn-warning my-2">have Questions?</a>
+          </p>
+          <marquee behavior="" direction="">
+            {% for earning,user in earnings %}
+            <b class="text-danger">{{user}}</b> <span>has earned </span><button class="btn btn-success text-dark ml-1"> ${{earning}}</button>&emsp;
+            {% endfor %}
+          </marquee>
+ 
+          <div class="container" id='below'>
+            <div class="row">
+              {% for i in plans %}
+                <div class="col-sm-3 p-2 mt-3">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="{{i.image.url}}" alt="Card image cap">
+                        <div class="card-block p-1">
+                            <h4 class="card-title pt-3 wow rollIn">{{i.title}}</h4>
+                            <div id="box" class="pt-3 ">
+                              <p class="card-text"><p class="text-muted">Invest <b style="color: rgb(218, 52, 52);font-size: 20px;"><i class="fa fa-dollar"></i>{{i.invest_amount}}</b></p></p> 
+                              &nbsp;<i id='hand' class="fa fa-hand-o-right mt-1"></i>&nbsp;<p class="card-text" ><p class="text-muted" >Earn <b style="color: rgb(218, 52, 52);font-size: 20px;"><i class="fa fa-dollar"></i>{{i.amount_after_profit}}</b></p></p>
+                            </div>
+                            <a href='{% url "invest_plans_view" i.id %}' class="btn btn-primary wow fadeInRight"   style="width: 100%;">Enroll plan</a>
+                          </div>
+                          </div>
+                    </div>
+                    {% endfor %} 
+                </div>  
+            </div>
+   
+            <div class=" mt-3" >
+              <div class="white_shd full margin_bottom_30">
+                 <div class="full graph_head">
+                    <div class="heading1 margin_0">
+                       <h2>Your Active Plans</h2>
+                    </div>
+                 </div>
+                 <div class="table_section padding_infor_info">
+                    <div class="table-responsive-sm">
+                       <table class="table table-dark">
+                          <thead>
+                             <tr class="text-warning">
+                                
+                                <th>Plan</th>
+                                <th>Profit</th>
+                                <th>joined on</th>
+                                <th>Expires on</th>
+                             </tr>
+                          </thead>
+                          <tbody>
+                             {% for i,j in yours %}
+                             <tr>
+                                <td>{{i.plan_name}}</td> 
+                                <td>${{j}}</td> 
+                                <td>{{i.date_of_joining}}</td>
+                                <td>{{i.when_expire}}</td>
+                             </tr>
+                             {% endfor %}
+                          </tbody>
+                       </table>
+                    </div>
+                 </div>
+              </div>
+           </div>
+
+  
+
+{% endblock %}
+

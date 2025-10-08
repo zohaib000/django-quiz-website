@@ -1,0 +1,80 @@
+{% extends 'home/base.html' %}
+{% block title %}<title>Fableey password Updates</title>{% endblock %}
+{% block content %}
+<style>
+   .label,label{
+      color: black;
+      font-size: 20px;
+      font-weight: ;
+   }
+   
+</style>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success" id="alerts" role="alert">
+<p style="color: black;font-size: 30px;">{{message}}</p>  
+</div>
+{% endfor %}
+{% endif %}
+<div class="midde_cont">
+  <div class="container-fluid">
+     <div class="row column_title">
+        <div class="col-md-12">
+           <div class="page_title">
+              <h2>Profile</h2>
+           </div>
+        </div>
+     </div>
+     <!-- row -->
+   
+     <div class="row column1" >
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+           <div class="white_shd full margin_bottom_30">
+              <div class="full graph_head" id='none'>
+                 <div class="heading1 margin_0">
+                    <h2>Change Password</h2>
+                 </div>
+              </div>
+              <div class="full price_table padding_infor_info">
+                 <div class="row">
+                    <!-- user profile section --> 
+                    <!-- profile image -->
+                    <div class="col-lg-12">
+                       <!-- profile contant section -->
+                       <div class="full inner_elements margin_top_3">
+                          <form action="" method="post" id="change_pass_form" novalidate>
+                             {% csrf_token %}
+                             {% if form.non_field_errors %}
+                             {% for error in form.non_field_errors %}
+                             <p style="color: brown;">{{error}}</p>
+                             {% endfor %}
+                             {% endif %}
+         
+                             {% for f in form %}
+                             {{f.label_tag}} {{f}} <p style='color: crimson;font-weight: bold;'>{{f.errors|striptags}}</p> <br><br>
+                             {% endfor %}
+                             <input type="submit" style='font-size: 20px;' value="Update password" class="btn btn-primary">
+                          </form>
+                       </div>
+                       <!-- end user profile section -->
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <div class="col-md-2"></div>
+        </div>
+        <!-- end row -->
+
+     </div>
+     <script>
+      window.onload=function(){
+      document.querySelector("[for='id_new_password2']").innerHTML='Confirm  Pass &nbsp; &nbsp;  ';
+      document.querySelector("[for='id_old_password']").innerHTML='Old  Password &nbsp; &nbsp;  ';
+      document.querySelector("[for='id_new_password1']").innerHTML='New Password &nbsp;  ';
+      
+      $('input[type="password"]').addClass('form-control form-control-lg mt-2');
+   }    
+  
+  </script>
+{% endblock %}
