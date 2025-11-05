@@ -30,6 +30,41 @@ def Extract_Answers(file_path):
 
 
 # Function to extract question & Options  from text file
+# def Extract_Questions_Options(file_path):
+#     with open(file_path, "r") as file:
+#         lines = file.readlines()
+
+#     # Initialize variables
+#     qa_pairs = []
+#     question = ""
+#     options = []
+
+#     # Iterate through each line in the file
+#     for line in lines:
+#         line = line.strip()
+#         if line == "":
+#             # End of options, construct question-answer pair
+#             qa_data = {
+#                 "question": question,
+#                 "option1": options[0],
+#                 "option2": options[1],
+#                 "option3": options[2],
+#                 "option4": options[3],
+#             }
+#             qa_pairs.append(qa_data)
+#             question = ""  # Reset question
+#             options = []  # Reset options for the next question
+#         elif line.startswith(("A.", "B.", "C.", "D.")):
+#             # Add options without option names
+#             options.append(line[3:])
+#         else:
+#             # Add to the current question
+#             question += " " + line
+
+#     json_data = json.dumps(qa_pairs, indent=4)
+#     return json_data
+
+
 def Extract_Questions_Options(file_path):
     with open(file_path, "r") as file:
         lines = file.readlines()
@@ -44,14 +79,15 @@ def Extract_Questions_Options(file_path):
         line = line.strip()
         if line == "":
             # End of options, construct question-answer pair
-            qa_data = {
-                "question": question,
-                "option1": options[0],
-                "option2": options[1],
-                "option3": options[2],
-                "option4": options[3],
-            }
-            qa_pairs.append(qa_data)
+            if question and len(options) == 4:  # Only add if we have question and 4 options
+                qa_data = {
+                    "question": question.strip(),
+                    "option1": options[0],
+                    "option2": options[1],
+                    "option3": options[2],
+                    "option4": options[3],
+                }
+                qa_pairs.append(qa_data)
             question = ""  # Reset question
             options = []  # Reset options for the next question
         elif line.startswith(("A.", "B.", "C.", "D.")):
@@ -60,6 +96,17 @@ def Extract_Questions_Options(file_path):
         else:
             # Add to the current question
             question += " " + line
+
+    # ADD THIS: Handle the last question (no empty line after it)
+    if question and len(options) == 4:
+        qa_data = {
+            "question": question.strip(),
+            "option1": options[0],
+            "option2": options[1],
+            "option3": options[2],
+            "option4": options[3],
+        }
+        qa_pairs.append(qa_data)
 
     json_data = json.dumps(qa_pairs, indent=4)
     return json_data

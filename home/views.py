@@ -86,14 +86,20 @@ def sendOutputData(request):
                     incorrect_answers = incorrect_answers + 1
 
         test_name = Test.objects.filter(id=selected_test)[0].test_name
+        # Calculate percentage
+        percentage = (correct_answers / total_questions) * 100
+
+        # Determine status
+        status = "Pass" if percentage >= 35 else "Fail"
+
         Result.objects.create(
             user=request.user,
             test_name=test_name,
             total_questions=total_questions,
             correct_answers=correct_answers,
             incorrect_answers=incorrect_answers,
-            score=int(correct_answers / total_questions) * 100,
-            status="",
+            score=percentage,
+            status=status,
         )
         return JsonResponse({"success": True})
     else:

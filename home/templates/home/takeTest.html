@@ -109,6 +109,11 @@
         <div class="row qs">
             <h1 id="question">which language is used as backend in web development?</h1>
         </div>
+        <div class="text-center mb-3">
+            <span class="badge badge-info" style="font-size: 18px;color:black">
+                Question <span id="currentQuestion">1</span> of <span id="totalQuestions"></span>
+            </span>
+        </div>
         <div class="options">
             <div class="form-check mt-0">
                 <input type="radio" class="form-check-input" name="ans">
@@ -160,6 +165,8 @@
             quizes.push(data)
         });
 
+        $('#totalQuestions').text(quizes.length);
+
 
         // var quizes = [
         // {
@@ -208,6 +215,20 @@
 
 
         current = 0;
+        // function show(current) {
+        //     quiz = quizes[current];
+        //     question.html(quiz.qs);
+        //     opt1.html(quiz.ans1);
+        //     opt2.html(quiz.ans2);
+        //     opt3.html(quiz.ans3);
+        //     opt4.html(quiz.ans4);
+        //     question_id.val(quiz.id)
+        //     test_id.val(quiz.test_id)
+        //     $("input[type='radio'][name=ans]:eq(0)").val(1);
+        //     $("input[type='radio'][name=ans]:eq(1)").val(2);
+        //     $("input[type='radio'][name=ans]:eq(2)").val(3);
+        //     $("input[type='radio'][name=ans]:eq(3)").val(4);
+        // }
         function show(current) {
             quiz = quizes[current];
             question.html(quiz.qs);
@@ -221,15 +242,62 @@
             $("input[type='radio'][name=ans]:eq(1)").val(2);
             $("input[type='radio'][name=ans]:eq(2)").val(3);
             $("input[type='radio'][name=ans]:eq(3)").val(4);
-
-
+            
+            // Update counter
+            $('#currentQuestion').text(current + 1);
+            
+            // Disable/enable next button
+            if (current >= quizes.length - 1) {
+                $('.next').prop('disabled', true).addClass('disabled');
+            } else {
+                $('.next').prop('disabled', false).removeClass('disabled');
+            }
         }
         show(current)
 
         // Next Button
         var outputData = {}
 
+        // $('.next').click(function () {
+        //     // saving user selected option
+        //     var optionMap = {
+        //         "1": "a",
+        //         "2": "b",
+        //         "3": "c",
+        //         "4": "d"
+        //     };
+        //     var selectedRadioButton = document.querySelector('input[name="ans"]:checked');
+        //     var selectedQuestion = document.querySelector('#question_id').value;
+        //     var selectedTest = document.querySelector('#test_id').value;
+        //     if (selectedRadioButton) {
+        //         var selectedOption = selectedRadioButton.value;
+        //         outputData[selectedQuestion] = optionMap[selectedOption];
+        //         outputData["selectedTest"] = selectedTest
+        //         console.log(outputData)
+        //     } else {
+        //         alert("Please select some option");
+        //         return;
+        //     }
+
+        //     // other operations
+
+        //     $('.container').removeClass('right wrong');
+        //     $('.form-check-label').removeClass('green');
+        //     current = current + 1;
+        //     if (current >= quizes.length) {
+        //         alert("No More Questions.")
+        //         current = current - 1
+        //         return;
+        //     }
+        //     show(current);
+        //     $(".form-check-input").prop('checked', false);
+        //     $('.container').addClass('animated bounceInRight');
+
+
+        // })
         $('.next').click(function () {
+            if ($(this).prop('disabled')) return; // Prevent if disabled
+            
             // saving user selected option
             var optionMap = {
                 "1": "a",
@@ -251,20 +319,16 @@
             }
 
             // other operations
-
             $('.container').removeClass('right wrong');
             $('.form-check-label').removeClass('green');
             current = current + 1;
             if (current >= quizes.length) {
-                alert("No More Questions.")
                 current = current - 1
                 return;
             }
             show(current);
             $(".form-check-input").prop('checked', false);
             $('.container').addClass('animated bounceInRight');
-
-
         })
 
         // Previous Button
@@ -286,10 +350,51 @@
 
 
 
-        $('#submitBtn').click(function (event) {
-            $('.next').click()
+        // $('#submitBtn').click(function (event) {
+        //     $('.next').click()
 
+        //     event.preventDefault();
+
+        //     // Serialize form data
+        //     console.log(JSON.stringify(outputData))
+        //     const json_data = { result: JSON.stringify(outputData) }
+
+        //     console.log(json_data)
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '{% url "sendOutputData" %}',
+        //         data: json_data,
+        //         success: function (response) {
+        //             alert('Test Submitted Successfully !');
+        //             window.location.href = "/"
+        //         },
+        //         error: function (xhr, errmsg, err) {
+        //             console.log('Failed to send data:', errmsg);
+        //         }
+        //     });
+        // });
+        $('#submitBtn').click(function (event) {
             event.preventDefault();
+            
+            // Save current question answer
+            var optionMap = {
+                "1": "a",
+                "2": "b",
+                "3": "c",
+                "4": "d"
+            };
+            var selectedRadioButton = document.querySelector('input[name="ans"]:checked');
+            var selectedQuestion = document.querySelector('#question_id').value;
+            var selectedTest = document.querySelector('#test_id').value;
+            
+            if (selectedRadioButton) {
+                var selectedOption = selectedRadioButton.value;
+                outputData[selectedQuestion] = optionMap[selectedOption];
+                outputData["selectedTest"] = selectedTest
+            } else {
+                alert("Please select an option for the current question");
+                return;
+            }
 
             // Serialize form data
             console.log(JSON.stringify(outputData))
@@ -301,13 +406,15 @@
                 url: '{% url "sendOutputData" %}',
                 data: json_data,
                 success: function (response) {
-                    alert('Test Submitted Successfully !');
+                    alert('Test Submitted Successfully!');
+                    window.location.href = "/"
                 },
                 error: function (xhr, errmsg, err) {
                     console.log('Failed to send data:', errmsg);
                 }
             });
         });
+
 
         // Show Answer Button
         // $('.show').click(function () {
